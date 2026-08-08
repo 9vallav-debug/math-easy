@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 2: Правила работы с отрицательными числами</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .important-box { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.1em; }
+        
+        /* Стили для интерактивного теста */
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    <!-- Наша надежная ссылка возврата на главную -->
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 2. Правила работы с отрицательными числами: почему минус на минус дает плюс?</h1>
+        <p>Чтобы никогда не путаться в знаках, запомните золотое правило:</p>
+        <ul>
+            <li><strong>Положительные числа (+)</strong> — это ваши доходы или наличные в кармане.</li>
+            <li><strong>Отрицательные числа (-)</strong> — это ваши долги.</li>
+        </ul>
+    </div>
+
+    <div class="lesson-block">
+        <h2>1. Сложение и вычитание: считаем баланс</h2>
+        <ul>
+            <li><strong>Минус плюс минус (Сложение долгов):</strong> Если вы заняли у одного друга 3 рубля, а у другого 5 рублей, ваш общий долг увеличился: <span class="formula-inline">(-3) + (-5) = -8</span>.</li>
+            <li><strong>Минус на минус при вычитании (Избавление от долга):</strong> Когда из вашей жизни уходит долг, вы фактически остаетесь в плюсе! Два минуса подряд превращаются в плюс: <span class="formula-inline">5 - (-3) = 5 + 3 = 8</span>.</li>
+        </ul>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Умножение и деление: друзья и враги</h2>
+        <p>Древние математики придумали гениальную шпаргалку для знаков:</p>
+        <ul>
+            <li><strong>Друг (+) моего друга (+) — мой друг (+)</strong> → Плюс на плюс дает <span class="formula-inline">ПЛЮС</span>.</li>
+            <li><strong>Враг (-) моего друга (+) — мой враг (-)</strong> → Минус на плюс дает <span class="formula-inline">МИНУС</span>.</li>
+            <li><strong>Враг (-) моего врага (-) — мой друг (+)</strong> → Минус на минус дает <span class="formula-inline">ПЛЮС</span>.</li>
+        </ul>
+    </div>
+
+    <div class="lesson-block">
+        <h2>3. Проверь себя: мини-тест</h2>
+        <details>
+            <summary>Вопрос №1: Баланс карты равен -200 рублей. Вы сделали покупку еще на 500 рублей. Каков баланс?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: -700 рублей.</strong></p>
+                <p><em>Разбор:</em> Вы складываете два долга: <span class="formula-inline">(-200) + (-500) = -700</span>. Ваш общий долг банку вырос.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Вопрос №2: Чему равен результат: (-4) · (-2) · (-3)?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: -24.</strong></p>
+                <p><em>Разбор:</em> Первые два минуса при умножении дают плюс: <span class="formula-inline">(-4) · (-2) = +8</span>. Затем получившийся плюс умножаем на последний минус: <span class="formula-inline">8 · (-3) = -24</span>.</p>
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>
