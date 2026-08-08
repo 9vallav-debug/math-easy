@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 1: Теорема Виета простыми словами</title>
+    
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-main { font-size: 1.4em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.1em; }
+        
+        /* Стили для интерактивного теста */
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    
+<a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+    <div class="lesson-block">
+        <h1>Урок 1. Теорема Виета: Магический подбор корней в уме</h1>
+        <p><strong>Теорема Виета</strong> — это математический инструмент, который позволяет находить корни квадратного уравнения без использования громоздкой формулы дискриминанта, а также мгновенно проверять правильность уже найденных корней.</p>
+        
+        <h2>1. Основное правило (для приведенного уравнения)</h2>
+        <p>Для квадратного уравнения вида:</p>
+        
+        <!-- Чистая формула без всякого кода -->
+        <div class="formula-main">x<sup>2</sup> + bx + c = 0</div>
+        
+        <p><em>(где коэффициент перед x<sup>2</sup> равен 1)</em></p>
+
+        <p>Теорема Виета утверждает, что:</p>
+        <ul>
+            <li><strong>Сумма корней</strong> равна коэффициенту <span class="formula-inline">b</span> с противоположным знаком: <span class="formula-inline">x<sub>1</sub> + x<sub>2</sub> = -b</span></li>
+            <li><strong>Произведение корней</strong> равно свободному члену <span class="formula-inline">c</span>: <span class="formula-inline">x<sub>1</sub> · x<sub>2</sub> = c</span></li>
+        </ul>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Разбор примера «на пальцах»</h2>
+        <p>Решим уравнение: <span class="formula-inline">x<sup>2</sup> - 5x + 6 = 0</span></p>
+        <ol>
+            <li><strong>Выписываем коэффициенты:</strong> коэффицент <span class="formula-inline">b = -5</span> (значит, сумма корней будет <span class="formula-inline">+5</span>), а свободный член <span class="formula-inline">c = 6</span> (произведение равно <span class="formula-inline">6</span>).</li>
+            <li><strong>Составляем загадку:</strong> нам нужно найти два числа, которые при умножении дают <span class="formula-inline">6</span>, а при сложении дают <span class="formula-inline">5</span>.</li>
+            <li><strong>Подбираем числа:</strong> умножением шестерку дают пары <span class="formula-inline">1 · 6</span> и <span class="formula-inline">2 · 3</span>. Проверяем сумму: <span class="formula-inline">1 + 6 = 7</span> (не подходит), а <span class="formula-inline">2 + 3 = 5</span> (идеально!).</li>
+        </ol>
+        <p><strong>Ответ:</strong> Корни уравнения <span class="formula-inline">x<sub>1</sub> = 2</span>, <span class="formula-inline">x<sub>2</sub> = 3</span>.</p>
+    </div>
+
+    <div class="lesson-block">
+        <h2>3. Проверь себя: mini-тест по теме</h2>
+        <p>Нажмите на вопрос, чтобы увидеть правильный ответ и разбор логики.</p>
+
+        <details>
+            <summary>Вопрос №1: Найдите корни уравнения x² - 5x + 6 = 0</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: 2 и 3.</strong></p>
+                <p><em>Разбор:</em> По теореме Виета сумма корней должна быть равна 5, а произведение — 6. Подходят числа 2 и 3, так как <span class="formula-inline">2 + 3 = 5</span> и <span class="formula-inline">2 · 3 = 6</span>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Вопрос №2: Чему равны корни уравнения x² + 7x + 12 = 0?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: -3 и -4.</strong></p>
+                <p><em>Разбор:</em> Так как произведение (12) положительное, а сумма (-7) отрицательная, оба корня должны быть меньше нуля. Подойдут числа -3 и -4, ведь <span class="formula-inline">(-3) + (-4) = -7</span>, а <span class="formula-inline">(-3) · (-4) = 12</span>.</p>
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>
