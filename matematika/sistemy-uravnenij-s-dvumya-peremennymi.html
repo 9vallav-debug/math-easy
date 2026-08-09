@@ -3,77 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Урок 4: Системы уравнений с X и Y</title>
+    <title>Базовый курс математики "на пальцах"</title>
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
         h1, h2, h3 { color: #2d3748; }
-        a { color: #3182ce; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
-        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
-        .important-box { background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.1em; }
+        .block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .welcome-box { background-color: #ebf8ff; border: 1px solid #bee3f8; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 25px; }
         
-        /* Стили для визуализации пересечения прямых на CSS */
-        .graph-container { background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 8px; height: 200px; position: relative; margin: 25px 0; overflow: hidden; }
-        .axis-x { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #a0aec0; }
-        .axis-y { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: #a0aec0; }
-        .line-blue { position: absolute; width: 140%; height: 3px; background: #3182ce; top: 120px; left: -10%, transform: rotate(-25deg); transform-origin: left center; }
-        .line-red { position: absolute; width: 140%; height: 3px; background: #e53e3e; top: 20px; left: -10%; transform: rotate(30deg); transform-origin: left center; }
-        .intersection-point { position: absolute; top: 83px; left: 57%; width: 12px; height: 12px; background: #38a169; border: 2px solid white; border-radius: 50%; box-shadow: 0 0 8px #38a169; z-index: 10; }
-        .graph-label { position: absolute; font-size: 0.85em; font-weight: bold; background: white; padding: 2px 6px; border-radius: 4px; border: 1px solid #cbd5e0; }
-
-        /* Стили для интерактивного теста */
-        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
-        details[open] { background: #e2e8f0; }
-        summary { font-weight: bold; outline: none; }
-        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+        /* Стили для ИНТЕРАКТИВНОГО меню на главной */
+        details { background: #f8fafc; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #3182ce; cursor: pointer; transition: background 0.2s; }
+        details[open] { background: #edf2f7; }
+        summary { font-weight: bold; font-size: 1.1em; color: #2d3748; outline: none; }
+        .menu-content { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; }
+        
+        /* Красивая кнопка для перехода к уроку */
+        .btn-start { display: inline-block; background-color: #3182ce; color: white !important; padding: 8px 16px; font-weight: bold; text-decoration: none; border-radius: 5px; margin-top: 10px; font-size: 0.9em; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-start:hover { background-color: #2b6cb0; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+    <div class="welcome-box">
+        <h1>Интерактивный учебник: Математика и алгебра «на пальцах»</h1>
+        <p>Добро пожаловать в понятный самоучитель! Нажимайте на темы ниже, чтобы узнать подробности и начать обучение.</p>
+    </div>
 
-    <div class="lesson-block">
-        <h1>Урок 4. Системы уравнений с X и Y: детективное расследование</h1>
-        <p>Что делать, если в математической загадке спрятано сразу два неизвестных числа? Например: <em>«Два числа в сумме дают 10, а их разность равна 4»</em>.</p>
-        <p>Одно уравнение вроде <span class="formula-inline">x + y = 10</span> нам не поможет, ведь под него подходит куча вариантов (9 и 1, 8 и 2, 5 and 5). Чтобы найти единственный верный ответ, нам нужно второе условие: <span class="formula-inline">x - y = 4</span>. Вместе они образуют <strong>систему уравнений</strong>.</p>
-        <p>Решить систему — это значит найти такую общую точку, где пересекаются условия обоих уравнений.</p>
+    <div class="block">
+        <h2>🗺️ Оглавление курса (Нажмите на тему)</h2>
         
-        <!-- НАША ВИЗУАЛИЗАЦИЯ ПЕРЕСЕЧЕНИЯ ПРЯМЫХ КОДОМ -->
-        <div class="graph-container">
-            <div class="axis-x"></div>
-            <div class="axis-y"></div>
-            <div class="line-blue"></div>
-            <div class="line-red"></div>
-            <div class="intersection-point"></div>
-            <div class="graph-label" style="top: 130px; left: 15%; color: #3182ce;">x + y = 10</div>
-            <div class="graph-label" style="top: 25px; left: 15%; color: #e53e3e;">x - y = 4</div>
-            <div class="graph-label" style="top: 60px; right: 25%; color: #38a169;">Решение (7; 3)</div>
-        </div>
-    </div>
-
-    <div class="lesson-block">
-        <h2>1. Метод подстановки (Внедрение «шпиона»)</h2>
-        <p>Этот метод идеален, когда из одного уравнения очень легко выразить одну переменную через другую.</p>
-        <ol>
-            <li><strong>Выражаем букву:</strong> Из уравнения <span class="formula-inline">x - y = 4</span> получаем <span class="formula-inline">x = 4 + y</span>. Наш <span class="formula-inline">x</span> — это шпион, маскирующийся под выражение!</li>
-            <li><strong>Внедряем:</strong> Подставляем шпиона в первое уравнение вместо буквы <span class="formula-inline">x</span>: <br><span class="formula-inline">(4 + y) + y = 10</span>.</li>
-            <li><strong>Считаем:</strong> Получаем <span class="formula-inline">4 + 2y = 10</span> → <span class="formula-inline">2y = 6</span> → <span class="formula-inline">y = 3</span>. Первый корень найден!</li>
-            <li><strong>Финальный шаг:</strong> Возвращаемся к шпиону: <span class="formula-inline">x = 4 + 3 = 7</span>.</li>
-        </ol>
-        <p><strong>Ответ:</strong> <span class="formula-inline">x = 7</span>, <span class="formula-inline">y = 3</span>.</p>
-    </div>
-
-    <div class="lesson-block">
-        <h2>2. Проверь себя: мини-тест</h2>
+        <!-- Интерактивный Урок 1 -->
         <details>
-            <summary>Вопрос №1: В системе уравнений y = 2x, а второе уравнение x + y = 9. Чему равны корни?</summary>
-            <div class="test-answer">
-                <p><strong>Правильный ответ: x = 3, y = 6.</strong></p>
-                <p><em>Разбор:</em> Подставляем игрек во второе уравнение: <span class="formula-inline">x + 2x = 9</span> → <span class="formula-inline">3x = 9</span> → <span class="formula-inline">x = 3</span>. Теперь находим игрек: <span class="formula-inline">y = 2 · 3 = 6</span>.</p>
+            <summary>🔑 Урок 1. Теорема Виета</summary>
+            <div class="menu-content">
+                <p>Магический подбор корней в уме. Вы узнаете, как решать сложные квадратные уравнения за 5 секунд без использования громоздкого дискриминанта.</p>
+                <a href="matematika/teorema-vieta-prostymi-slovami.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
+
+        <!-- Интерактивный Урок 2 -->
+        <details>
+            <summary>🔑 Урок 2. Отрицательные числа</summary>
+            <div class="menu-content">
+                <p>Разбираем правила работы со знаками «на пальцах». Вы поймете, почему минус на минус всегда дает плюс, используя простую аналогию с денежными долгами.</p>
+                <a href="matematika/otricatelnye-chisla-pravila.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+
+        <!-- Интерактивный Урок 3 -->
+        <details>
+            <summary>🔑 Урок 3. Линейные уравнения</summary>
+            <div class="menu-content">
+                <p>Уравнения с одной переменной. Поймем закон аптекарских чашечных весов и освоим главное правило алгебры: «Иксы — налево, числа — направо».</p>
+                <a href="matematika/linejnye-uravneniya-s-odnoj-peremennoj.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+
+        <!-- Интерактивный Урок 4 -->
+        <details>
+            <summary>🔑 Урок 4. Системы уравнений</summary>
+            <div class="menu-content">
+                <p>Настоящее математическое расследование с двумя неизвестными X и Y. Изучим метод подстановки (внедрение шпиона) и графическое пересечение улик.</p>
+                <a href="matematika/sistemy-uravnenij-s-dvumya-peremennymi.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+        
     </div>
 
 </body>
