@@ -5,53 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Базовый курс математики "на пальцах"</title>
     <style>
-        /* Простые стили для красоты, адаптивности и читаемости */
         body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
         h1, h2, h3 { color: #2d3748; }
-        a { color: #3182ce; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
         .block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .welcome-box { background-color: #ebf8ff; border: 1px solid #bee3f8; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 25px; }
-        ul { list-style-type: none; padding-left: 0; }
-        li { margin-bottom: 15px; padding: 10px; background: #f8fafc; border-left: 4px solid #3182ce; border-radius: 0 6px 6px 0; }
-        small { color: #718096; display: block; margin-top: 5px; }
+        
+        /* Стили для ИНТЕРАКТИВНОГО меню на главной */
+        details { background: #f8fafc; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #3182ce; cursor: pointer; transition: background 0.2s; }
+        details[open] { background: #edf2f7; }
+        summary { font-weight: bold; font-size: 1.1em; color: #2d3748; outline: none; }
+        .menu-content { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; }
+        
+        /* Красивая кнопка для перехода к уроку */
+        .btn-start { display: inline-block; background-color: #3182ce; color: white !important; padding: 8px 16px; font-weight: bold; text-decoration: none; border-radius: 5px; margin-top: 10px; font-size: 0.9em; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-start:hover { background-color: #2b6cb0; text-decoration: none; }
     </style>
 </head>
 <body>
 
     <div class="welcome-box">
         <h1>Интерактивный учебник: Математика и алгебра «на пальцах»</h1>
-        <p>Добро пожаловать в понятный самоучитель! Каждая тема разобрана через простые жизненные аналогии, снабжена шпаргалками и онлайн-тестами.</p>
+        <p>Добро пожаловать в понятный самоучитель! Нажимайте на темы ниже, чтобы узнать подробности и начать обучение.</p>
     </div>
 
     <div class="block">
-        <h2>🗺️ Оглавление курса</h2>
-        <p><em>Нажмите на название темы, чтобы перейти к интерактивному уроку:</em></p>
+        <h2>🗺️ Оглавление курса (Нажмите на тему)</h2>
         
-        <ul>
-            <li>
-                🔑 <strong>Урок 1.</strong> 
-                <!-- Ссылка на ваш рабочий файл урока -->
-                <a href="matematika/teorema-vieta-prostymi-slovami.html">Теорема Виета: Магический подбор корней в уме</a>
-                <small>Как решать квадратные уравнения за 5 секунд без дискриминанта.</small>
-            </li>
-            <!-- МЫ ДОБАВИЛИ ЭТУ СТРОЧКУ С СЫЛКОЙ НА НОВЫЙ ФАЙЛ -->
-            <li>
-                🔑 <strong>Урок 2.</strong> 
-                <a href="matematika/otricatelnye-chisla-pravila.html">Правила работы с отрицательными числами</a>
-                <small>Разбираем «на пальцах», почему минус на минус дает плюс и как считать долги.</small>
-            </li>
-            <li>
-                🔑 <strong>Урок 3.</strong> 
-                <a href="matematika/linejnye-uravneniya-s-odnoj-peremennoj.html">Линейные уравнения с одной переменной</a>
-                <small>Правило аптекарских весов: как находить неизвестный «X» без головной боли.</small>
-            </li>
-            <li>
-                🔑 <strong>Урок 4.</strong> 
-                <a href="matematika/sistemy-uravnenij-s-dvumya-peremennymi.html">Системы уравнений с X и Y</a>
-                <small>Детективное расследование в математике: метод подстановки.</small>
-            </li>
-        </ul>
+        <!-- Интерактивный Урок 1 -->
+        <details>
+            <summary>🔑 Урок 1. Теорема Виета</summary>
+            <div class="menu-content">
+                <p>Магический подбор корней в уме. Вы узнаете, как решать сложные квадратные уравнения за 5 секунд без использования громоздкого дискриминанта.</p>
+                <a href="matematika/teorema-vieta-prostymi-slovami.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+
+        <!-- Интерактивный Урок 2 -->
+        <details>
+            <summary>🔑 Урок 2. Отрицательные числа</summary>
+            <div class="menu-content">
+                <p>Разбираем правила работы со знаками «на пальцах». Вы поймете, почему минус на минус всегда дает плюс, используя простую аналогию с денежными долгами.</p>
+                <a href="matematika/otricatelnye-chisla-pravila.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+
+        <!-- Интерактивный Урок 3 -->
+        <details>
+            <summary>🔑 Урок 3. Линейные уравнения</summary>
+            <div class="menu-content">
+                <p>Уравнения с одной переменной. Поймем закон аптекарских чашечных весов и освоим главное правило алгебры: «Иксы — налево, числа — направо».</p>
+                <a href="matematika/linejnye-uravneniya-s-odnoj-peremennoj.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+
+        <!-- Интерактивный Урок 4 -->
+        <details>
+            <summary>🔑 Урок 4. Системы уравнений</summary>
+            <div class="menu-content">
+                <p>Настоящее математическое расследование с двумя неизвестными X и Y. Изучим метод подстановки (внедрение шпиона) и графическое пересечение улик.</p>
+                <a href="matematika/sistemy-uravnenij-s-dvumya-peremennymi.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+        
     </div>
 
 </body>
