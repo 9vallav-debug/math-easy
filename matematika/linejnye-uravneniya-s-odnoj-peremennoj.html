@@ -19,6 +19,14 @@
         details[open] { background: #e2e8f0; }
         summary { font-weight: bold; outline: none; }
         .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+
+/* Красивый блок для визуализации весов */
+.scales-container { display: flex; justify-content: space-around; align-items: flex-end; background: #e2e8f0; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px dashed #cbd5e0; }
+.scale-cup { background: #cbd5e0; padding: 15px; border-radius: 8px 8px 0 0; border-bottom: 5px solid #4a5568; text-align: center; width: 40%; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+.scale-equal { font-size: 2em; color: #4a5568; align-self: center; font-weight: bold; }
+.item-x { background: #3182ce; color: white; padding: 5px 10px; border-radius: 4px; display: inline-block; margin: 2px; }
+.item-weight { background: #e53e3e; color: white; padding: 5px 10px; border-radius: 4px; display: inline-block; margin: 2px; }
+        
     </style>
 </head>
 <body>
@@ -36,7 +44,21 @@
         </ul>
         <p>Чтобы узнать вес мешка, нужно убрать гирю 5 кг слева. Но чтобы весы не перекосило, <strong>точно такую же гирю в 5 кг нужно убрать и справа</strong>! Получаем: <span class="formula-inline">x = 12 - 5</span>, то есть <span class="formula-inline">x = 7</span>.</p>
     </div>
-
+<div class="scales-container">
+    <!-- Левая чаша весов -->
+    <div class="scale-cup">
+        <span class="item-x">Мешок X</span>
+        <span class="item-weight">Гиря 5 кг</span>
+    </div>
+    
+    <!-- Знак равенства по центру -->
+    <div class="scale-equal">=</div>
+    
+    <!-- Правая чаша весов -->
+    <div class="scale-cup">
+        <span class="item-weight">Гиря 12 кг</span>
+    </div>
+</div>
     <div class="lesson-block">
         <h2>1. Главное правило: «Иксы — налево, числа — направо»</h2>
         <p>Когда уравнение длинное, мы можем переносить слагаемые через знак равенства «=» как через границу. Но есть строгое условие:</p>
