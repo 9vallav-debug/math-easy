@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 6: Теорема Пифагора</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-main { font-size: 1.6em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
+        
+        /* Стили для интерактивной лаборатории Пифагора */
+        .geometry-container { background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 8px; padding: 20px; margin: 20px 0; display: flex; flex-direction: column; align-items: center; }
+        .canvas-wrapper { width: 100%; max-width: 300px; height: 220px; position: relative; margin-bottom: 15px; }
+        svg { width: 100%; height: 100%; }
+        
+        .control-panel { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; width: 100%; box-sizing: border-box; }
+        .slider-group { margin: 10px 0; font-weight: bold; }
+        .slider { width: 70%; max-width: 300px; cursor: pointer; vertical-align: middle; margin: 0 10px; }
+        .live-value { font-weight: bold; color: #3182ce; }
+        .result-box { background: white; padding: 12px; border-radius: 6px; border-left: 5px solid #38a169; text-align: left; width: 100%; box-sizing: border-box; }
+
+        /* Стили для теста */
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 6. Теорема Пифагора: геометрия на дачном участке</h1>
+        <p>Если спросить любого взрослого, какую математическую фразу он помнит со школы, в 90% случаев вы услышите: <em>«Пифагоровы штаны во все стороны равны!»</em>. Эта шутливая поговорка помогает запомнить одну из самых важных теорем в мире.</p>
+        <p>Теорема Пифагора работает <strong>строго в прямоугольных треугольниках</strong> (где один угол равен 90°). Самая длинная сторона называется <strong>гипотенузой (c)</strong>, а две покороче — <strong>катетами (a и b)</strong>.</p>
+        <div class="formula-main">a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></div>
+        <p>Официальное правило гласит: Квадрат длины гипотенузы равен сумме квадратов длин катетов. Чтобы найти саму гипотенузу, нужно просто извлечь корень: <span class="formula-inline">c = &radic;(a<sup>2</sup> + b<sup>2</sup>)</span>.</p>
+    </div>
+
+    <!-- НАША ЖИВАЯ ГЕОМЕТРИЧЕСКАЯ МОДЕЛЬ -->
+    <div class="lesson-block">
+        <h2>📐 Интерактивный конструктор Пифагора</h2>
+        <p>Подвигайте ползунки, чтобы изменить длину вертикального и горизонтального катетов. Треугольник изменит форму, а теорема сама пересчитает гипотенузу:</p>
+        
+        <div class="geometry-container">
+            <!-- Панель ползунков -->
+            <div class="control-panel">
+                <div class="slider-group">
+                    Катет a (высота): <input type="range" id="sliderA" class="slider" min="3" max="8" step="1" value="3"> <span id="valA" class="live-value">3</span> см
+                </div>
+                <div class="slider-group">
+                    Катет b (длина): <input type="range" id="sliderB" class="slider" min="3" max="8" step="1" value="4"> <span id="valB" class="live-value">4</span> см
+                </div>
+            </div>
+
+            <!-- Живой векторный треугольник SVG -->
+            <div class="canvas-wrapper">
+                <svg viewBox="0 0 250 220">
+                    <!-- Сетка подложки (угол 90 градусов в точке 30, 190) -->
+                    <path d="M 30 190 L 30 170 L 50 170 L 50 190 Z" fill="#cbd5e0" opacity="0.5" /> <!-- Значок прямого угла -->
+                    
+                    <!-- Сам динамический треугольник -->
+                    <polygon id="triangle" points="30,190 30,130 110,190" fill="none" stroke="#2b6cb0" stroke-width="4" stroke-linejoin="round" />
+                    
+                    <!-- Текстовые подписи сторон -->
+                    <text id="labelA" x="12" y="165" fill="#e53e3e" font-weight="bold" font-size="14">a=3</text>
+                    <text id="labelb" x="65" y="210" fill="#2b6cb0" font-weight="bold" font-size="14">b=4</text>
+                    <text id="labelC" x="80" y="145" fill="#38a169" font-weight="bold" font-size="16">c=5</text>
+                </svg>
+            </div>
+
+            <!-- Шаги вычислений -->
+            <div class="result-box">
+                <div id="pifStep1" style="margin-bottom: 5px;"></div>
+                <div id="pifStep2" style="font-weight: bold; color: #38a169; font-size: 1.1em;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-block">
+        <h2>1. Секретное оружие: Египетский треугольник</h2>
+        <p>Самый знаменитый прямоугольный треугольник имеет стороны <strong>3, 4 и 5</strong>. Проверим: <span class="formula-inline">3<sup>2</sup> + 4<sup>2</sup> = 9 + 16 = 25</span>, а <span class="formula-inline">5<sup>2</sup> = 25</span>. </p>
+        <p>Строители используют этот секрет тысячи лет. Если на даче нужно разметить идеально ровный прямоугольный фундамент, отмерьте две веревки длиной 3 и 4 метра под углом. Разводите их концы до тех пор, пока расстояние между ними не станет ровно 5 метров. Угол между ними автоматически станет ровно 90 градусов!</p>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Проверь себя: мини-тест</h2>
+        <details>
+            <summary>Вопрос №1: Катет равен 6 см, а второй — 8 см. Чему равна гипотенуза?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: 10 см.</strong></p>
+                <p><em>Разбор:</em> Считаем по формуле: <span class="formula-inline">6<sup>2</sup> + 8<sup>2</sup> = 36 + 64 = 100</span>. Корень из 100 равен 10. (Вы можете выставить ползунки на 6 и 8 в нашей модели выше и проверить ответ!).</p>
+            </div>
+        </details>
+    </div>
+
+    <!-- ГЕОМЕТРИЧЕСКИЙ ДВИЖОК JAVASCRIPT -->
+    <script>
+        const sliderA = document.getElementById('sliderA');
+        const sliderB = document.getElementById('sliderB');
+        const triangle = document.getElementById('triangle');
+        
+        const valA = document.getElementById('valA');
+        const valB = document.getElementById('valB');
+        
+        const labelA = document.getElementById('labelA');
+        const labelBText = document.getElementById('labelb');
+        const labelC = document.getElementById('labelC');
+        
+        const step1 = document.getElementById('pifStep1');
+        const step2 = document.getElementById('pifStep2');
+
+        function updateTriangle() {
+            const a = parseInt(sliderA.value); // Значение катета а (в см)
+            const b = parseInt(sliderB.value); // Значение катета b (в см)
+            
+            // Обновляем текст на панели управления
+            valA.innerText = a;
+            valB.innerText = b;
+            
+            // Переводим сантиметры в пиксели экрана для отрисовки (1 см = 20 пикселей)
+            const pixelA = a * 20;
+            const pixelB = b * 20;
+            
+            // Точка угла 90 градусов зафиксирована на координатах (30, 190)
+            const cornerX = 30;
+            const cornerY = 190;
+            
+            // Вычисляем новые вершины треугольника
+            const topX = cornerX;
+            const topY = cornerY - pixelA; // Идем вверх по оси Y
+            const rightX = cornerX + pixelB; // Идем вправо по оси X
+            const rightY = cornerY;
+            
+            // Перерисовываем SVG полигон
+            triangle.setAttribute('points', `${cornerX},${cornerY} ${topX},${topY} ${rightX},${rightY}`);
+            
+            // Смещаем текстовые метки на графике, чтобы они не налезали друг на друга
+            labelA.setAttribute('y', cornerY - (pixelA / 2) + 5);
+            labelBText.setAttribute('x', cornerX + (pixelB / 2) - 10);
+            
+            labelC.setAttribute('x', cornerX + (pixelB / 2) + 10);
+            labelC.setAttribute('y', cornerY - (pixelA / 2) - 10);
+            
+            // Математический расчет гипотенузы
+            const cSquared = (a * a) + (b * b);
+            const c = Math.sqrt(cSquared).toFixed(2);
+            
+            // Обновляем текст внутри графика
+            labelA.textContent = `a=${a}`;
+            labelBText.textContent = `b=${b}`;
+            labelC.textContent = `c=${c}`;
+            
+            // Выводим пошаговое текстовое решение в панель
+            step1.innerHTML = `<strong>Шаг 1. Складываем квадраты катетов:</strong><br>${a}<sup>2</sup> + ${b}<sup>2</sup> = ${a*a} + ${b*b} = <strong>${cSquared}</strong>`;
+            step2.innerHTML = `Шаг 2. Извлекаем корень: c = &radic;${cSquared} = <strong>${c} см</strong>`;
+        }
+
+        // Подключаем слушатели на движение ползунков
+        sliderA.addEventListener('input', updateTriangle);
+        sliderB.addEventListener('input', updateTriangle);
+        
+
+// Запускаем первый расчет при загрузке страницы
+updateTriangle();
+</script>
+
+</body>
+</html>
