@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 8: Что такое Тангенс угла</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-main { font-size: 1.5em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
+        
+        /* Стили для интерактивной лаборатории Тангенса */
+        .tg-container { background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 8px; padding: 20px; margin: 20px 0; display: flex; flex-direction: column; align-items: center; }
+        .canvas-wrapper { width: 100%; max-width: 400px; height: 300px; position: relative; margin-bottom: 15px; background: white; border-radius: 6px; }
+        svg { width: 100%; height: 100%; }
+        
+        .control-panel { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; width: 100%; box-sizing: border-box; }
+        .slider { width: 70%; max-width: 300px; cursor: pointer; vertical-align: middle; margin: 0 10px; }
+        .live-value { font-weight: bold; color: #b7791f; font-size: 1.1em; }
+        .result-box { background: white; padding: 12px; border-radius: 6px; border-left: 5px solid #b7791f; text-align: left; width: 100%; box-sizing: border-box; }
+
+        /* Тесты */
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] = { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 8. Что такое Тангенс: измеряем крутизну склона</h1>
+        <p>Если синус и косинус всегда зажаты в жестких рамках от 0 до 1, то <strong>Тангенс (<span class="formula-inline">tg</span>)</strong> — это настоящий бунтарь тригонометрии. Тангенс — это чистый показатель <strong>крутизны склона</strong>.</p>
+        <p>Представьте, что длина горы по земле строго зафиксирована (например, 100 метров). Тангенс показывает, во сколько раз вертикальная высота горы больше или меньше её основания:</p>
+        <div class="formula-main">tg(&alpha;) = Высота / Земля</div>
+        <p>Если угол равен 45&deg;, то высота горы в точности равна её длине по земле, и тангенс равен <strong>1</strong>. Но если мы начнем задирать угол к 90&deg;, высота устремится вверх, а тангенс начнет расти до <strong>бесконечности (&infin;)</strong>!</p>
+    </div>
+
+    <!-- НАША ИНТЕРАКТИВНАЯ БЕСКОНЕЧНАЯ ЛАБОРАТОРИЯ -->
+    <div class="lesson-block">
+        <h2>🔬 Симулятор крутизны (Магия бесконечности)</h2>
+        <p>Подножие горы по земле строго зафиксировано — 100 метров. Меняйте угол ползунком и смотрите, как крутизна (тангенс) заставляет высоту горы взлетать в космос:</p>
+        
+        <div class="tg-container">
+            <div class="control-panel">
+                Угол наклона: <input type="range" id="tgSlider" class="slider" min="0" max="80" step="5" value="45"> <span id="tgAngleVal" class="live-value">45</span>&deg;
+            </div>
+
+            <div class="canvas-wrapper">
+                <svg viewBox="0 0 400 300">
+                    <!-- Оси координат. Начало горы в (50, 270) -->
+                    <line x1="30" y1="270" x2="380" y2="270" stroke="#cbd5e0" stroke-width="1" />
+                    
+                    <!-- Земля зафиксирована на 150 пикселей (до 200, 270) -->
+                    <line x1="50" y1="270" x2="200" y2="270" stroke="#3182ce" stroke-width="4" />
+                    <text x="90" y="290" fill="#3182ce" font-weight="bold" font-size="12">Земля = 100 м</text>
+                    
+                    <!-- Динамический склон горы (гипотенуза) -->
+                    <line id="tgHyp" x1="50" y1="270" x2="200" y2="120" stroke="#4a5568" stroke-width="3" />
+                    
+                    <!-- Вертикальная Высота (растет вверх) -->
+                    <line id="tgHeight" x1="200" y1="270" x2="200" y2="120" stroke="#e53e3e" stroke-width="4" />
+                    <text id="tgHeightTxt" x="210" y="200" fill="#e53e3e" font-weight="bold" font-size="13">Высота = 100 м</text>
+                    
+                    <!-- Обозначение Тангенса у вершины -->
+                    <text id="tgLabel" x="210" y="100" fill="#b7791f" font-weight="bold" font-size="15">tg = 1.00</text>
+                </svg>
+            </div>
+
+            <!-- Живые расчеты -->
+            <div class="result-box">
+                <div id="calcTgText" style="color: #b7791f; font-weight: bold; font-size: 1.1em;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Проверь себя: мини-тест</h2>
+        <details>
+            <summary>Вопрос №1: Может ли тангенс угла в прямоугольном треугольнике быть равен 5?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: Да, конечно!</strong></p>
+                <p><em>Разбор:</em> Тангенс — это просто отношение высоты к длине по земле. Если стена дома имеет высоту 5 метров (противолежащий катет), а вы стоите на полу в 1 метре от неё (прилежащий катет), то тангенс угла у ваших ног будет равен строго <span class="formula-inline">5 / 1 = 5</span>. Ограничений в единицу у тангенса нет!</p>
+            </div>
+        </details>
+    </div>
+
+    <!-- ТАНГЕНСЕНЦИАЛЬНЫЙ ДВИЖОК JAVASCRIPT -->
+    <script>
+        const slider = document.getElementById('tgSlider');
+        const angleVal = document.getElementById('tgAngleVal');
+        const tgHyp = document.getElementById('tgHyp');
+        const tgHeight = document.getElementById('tgHeight');
+        const tgHeightTxt = document.getElementById('tgHeightTxt');
+        const tgLabel = document.getElementById('tgLabel');
+        const calcTgText = document.getElementById('calcTgText');
+
+        function updateTg() {
+            const deg = parseInt(slider.value);
+            angleVal.innerText = deg;
+            
+            // Перевод в радианы
+            const rad = (deg * Math.PI) / 180;
+            
+            // Вычисляем чистый тангенс
+            const tg = Math.tan(rad);
+            
+            const startX = 50;
+            const startY = 270;
+            const basePx = 150; // Земля жестко зафиксирована на 150 пикселей экрана
+            
+            const endX = startX + basePx; // Всегда 200
+            // Вычисляем высоту в пикселях на экране
+            const heightPx = basePx * tg;
+            const endY = startY - heightPx;
+            
+            // Двигаем склон и высоту на SVG графике
+            tgHyp.setAttribute('x2', endX);
+            tgHyp.setAttribute('y2', endY);
+            
+            tgHeight.setAttribute('x2', endX);
+            tgHeight.setAttribute('y2', endY);
+            
+            // Корректируем положение текстов, чтобы они не улетали за край экрана
+            let textY = endY + (heightPx / 2);
+            if (textY > 260) textY = 250;
+            tgHeightTxt.setAttribute('y', textY);
+            tgHeightTxt.textContent = `Высота = ${Math.round(100 * tg)} м`;
+            
+            tgLabel.setAttribute('y', Math.max(endY - 10, 25));
+            tgLabel.textContent = `tg(${deg}°) = ${tg.toFixed(2)}`;
+            
+            // Выводим красивый интерактивный текст
+            calcTgText.innerHTML = `Тангенс (${deg}&deg;) = ${tg.toFixed(4)} &rarr; Высота горы: 100 м &middot; ${tg.toFixed(4)} = <strong>${(100 * tg).toFixed(1)} м</strong>`;
+        }
+
+        slider.addEventListener('input', updateTg);
+        updateTg();
+    </script>
+</body>
+</html>
