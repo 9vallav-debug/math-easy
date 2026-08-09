@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 3: Линейные уравнения с одной переменной</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-main { font-size: 1.4em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.1em; }
+        
+        /* Стили для интерактивного теста */
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    <!-- Наша надежная ссылка возврата на главную -->
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 3. Линейные уравнения: как находить «X» без головной боли</h1>
+        <p>Знак равенства (<strong>=</strong>) в уравнении — это знак идеального баланса. Представьте себе старые аптекарские чашечные весы:</p>
+        <ul>
+            <li>На левой чаше лежит мешок с неизвестным весом (<span class="formula-inline">x</span>) и гиря 5 кг.</li>
+            <li>На правой чаше лежат гири общей массой 12 кг.</li>
+            <li>Весы находятся в идеальном равновесии: <span class="formula-inline">x + 5 = 12</span>.</li>
+        </ul>
+        <p>Чтобы узнать вес мешка, нужно убрать гирю 5 кг слева. Но чтобы весы не перекосило, <strong>точно такую же гирю в 5 кг нужно убрать и справа</strong>! Получаем: <span class="formula-inline">x = 12 - 5</span>, то есть <span class="formula-inline">x = 7</span>.</p>
+    </div>
+
+    <div class="lesson-block">
+        <h2>1. Главное правило: «Иксы — налево, числа — направо»</h2>
+        <p>Когда уравнение длинное, мы можем переносить слагаемые через знак равенства «=» как через границу. Но есть строгое условие:</p>
+        <p style="background-color: #f0f7ff; border-left: 4px solid #007bff; padding: 15px; border-radius: 0 8px 8px 0;">
+            <strong>Правило переноса:</strong> Когда число или «икс» перешагивает через знак «=», оно меняет свой математический знак на противоположный (плюс меняется на минус, а минус — на плюс).
+        </p>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Пошаговый алгоритм решения</h2>
+        <p>Разберем уравнение: <span class="formula-inline">3x - 4 = x + 6</span></p>
+        <ol>
+            <li><strong>Группируем:</strong> переносим <span class="formula-inline">x</span> налево (стал <span class="formula-inline">-x</span>), а число <span class="formula-inline">-4</span> направо (стало <span class="formula-inline">+4</span>): <br><span class="formula-inline">3x - x = 6 + 4</span>.</li>
+            <li><strong>Считаем части:</strong> было 3 мешка, забрали 1 — осталось 2 мешка (<span class="formula-inline">2x</span>). Справа: <span class="formula-inline">6 + 4 = 10</span>. Получаем: <br><span class="formula-inline">2x = 10</span>.</li>
+            <li><strong>Находим X:</strong> делим число справа на множитель перед иксом: <br><span class="formula-inline">x = 10 / 2 = 5</span>.</li>
+        </ol>
+        <p><strong>Ответ:</strong> <span class="formula-inline">x = 5</span>.</p>
+    </div>
+
+    <div class="lesson-block">
+        <h2>3. Проверь себя: мини-тест</h2>
+        <details>
+            <summary>Вопрос №1: Решите уравнение: 2x + 7 = 15. Чему равен x?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: x = 4.</strong></p>
+                <p><em>Разбор:</em> Переносим 7 направо со знаком минус: <span class="formula-inline">2x = 15 - 7</span> → <span class="formula-inline">2x = 8</span>. Делим на 2: <span class="formula-inline">x = 8 / 2 = 4</span>.</p>
+            </div>
+        </details>
+
+        <details>
+            <summary>Вопрос №2: Найдите корень уравнения: 5x - 3 = 2x + 9</summary>
+            <div class="test-answer">
+                <p><strong>Правильный expert-ответ: x = 4.</strong></p>
+                <p><em>Разбор:</em> Собираем иксы слева, числа справа: <span class="formula-inline">5x - 2x = 9 + 3</span>. Считаем: <span class="formula-inline">3x = 12</span>. Находим икс: <span class="formula-inline">x = 12 / 3 = 4</span>.</p>
+            </div>
+        </details>
+    </div>
+
+</body>
+</html>
