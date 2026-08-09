@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 7: Что такое Синус и Косинус</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-main { font-size: 1.5em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
+        
+        /* Стили для интерактивной тригонометрической модели */
+        .trig-container { background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 8px; padding: 20px; margin: 20px 0; display: flex; flex-direction: column; align-items: center; }
+        .canvas-wrapper { width: 100%; max-width: 400px; height: 250px; position: relative; margin-bottom: 15px; }
+        svg { width: 100%; height: 100%; }
+        
+        .control-panel { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; width: 100%; box-sizing: border-box; }
+        .slider { width: 70%; max-width: 300px; cursor: pointer; vertical-align: middle; margin: 0 10px; }
+        .live-value { font-weight: bold; color: #2b6cb0; font-size: 1.1em; }
+        .result-box { background: white; padding: 12px; border-radius: 6px; border-left: 5px solid #3182ce; text-align: left; width: 100%; box-sizing: border-box; }
+
+        /* Тесты */
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 7. Что такое Синус и Косинус: взгляд на гору</h1>
+        <p>Синус (<span class="formula-inline">sin</span>) и Косинус (<span class="formula-inline">cos</span>) — это не страшные слова, а обычные <strong>числа-переводчики (коэффициенты)</strong>. Представьте, что вы поднимаетесь в гору по склону длиной ровно 100 метров (это наша гипотенуза):</p>
+        <ul>
+            <li><strong>Синус</strong> показывает, какую долю от вашего пути составляет <strong>высота подъема вверх</strong>.</li>
+            <li><strong>Косинус</strong> показывает, какую долю от вашего пути составляет <strong>расстояние вперед по земле</strong>.</li>
+        </ul>
+    </div>
+
+    <!-- НАША ЖИВАЯ ТРИГОНОМЕТРИЧЕСКАЯ ЛАБОРАТОРИЯ -->
+    <div class="lesson-block">
+        <h2>🔬 Интерактивный симулятор склона</h2>
+        <p>Меняйте угол наклона горы ползунком. Пройденный путь по склону зафиксирован — 100 метров. Смотрите, как синус и косинус переводят этот путь в реальную высоту и дистанцию по земле:</p>
+        
+        <div class="trig-container">
+            <div class="control-panel">
+                Угол наклона горы: <input type="range" id="angleSlider" class="slider" min="0" max="90" step="5" value="30"> <span id="angleVal" class="live-value">30</span>&deg;
+            </div>
+
+            <div class="canvas-wrapper">
+                <svg viewBox="0 0 350 220">
+                    <!-- Сетка и дуга угла -->
+                    <path id="angleArc" d="M 80 190 A 30 30 0 0 0 80 190" fill="none" stroke="#dd6b20" stroke-width="2" />
+                    
+                    <!-- Гора (прямоугольный треугольник). Начало в (50, 190) -->
+                    <polygon id="mountain" points="50,190 50,190 50,190" fill="none" stroke="#4a5568" stroke-width="3" stroke-linejoin="round" />
+                    
+                    <!-- Стрелки-индикаторы высоты и земли -->
+                    <line id="heightLine" x1="50" y1="190" x2="50" y2="190" stroke="#e53e3e" stroke-width="3" />
+                    <line id="groundLine" x1="50" y1="190" x2="50" y2="190" stroke="#3182ce" stroke-width="3" />
+                    
+                    <!-- Текстовые подписи -->
+                    <text x="45" y="210" fill="#3182ce" font-weight="bold" font-size="12">Земля (Косинус)</text>
+                    <text id="txtHyp" x="120" y="110" fill="#4a5568" font-weight="bold" font-size="14">Путь = 100 м</text>
+                    <text id="txtSin" x="55" y="140" fill="#e53e3e" font-weight="bold" font-size="13">Высота</text>
+                </svg>
+            </div>
+
+            <!-- Живые расчеты -->
+            <div class="result-box">
+                <div id="calcSin" style="margin-bottom: 5px; color: #e53e3e; font-weight: bold;"></div>
+                <div id="calcCos" style="color: #3182ce; font-weight: bold;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Проверь себя: мини-тест</h2>
+        <details>
+            <summary>Вопрос №1: Может ли синус острого угла быть равен 1.5?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: Нет, никогда.</strong></p>
+                <p><em>Разбор:</em> Синус — это отношение высоты к пройденному пути. Так как вертикальная высота горы физически не может быть длиннее, чем сам наклонный склон, результат деления меньшего числа на большее всегда будет меньше единицы! (Вы можете убедиться в этом, выставив угол 90° на симуляторе — синус достигнет своего максимума, равного 1).</p>
+            </div>
+        </details>
+    </div>
+
+    <!-- ТРИГОНОМЕТРИЧЕСКИЙ ДВИЖОК JAVASCRIPT -->
+    <script>
+        const slider = document.getElementById('angleSlider');
+        const angleVal = document.getElementById('angleVal');
+        const mountain = document.getElementById('mountain');
+        
+        const heightLine = document.getElementById('heightLine');
+        const groundLine = document.getElementById('groundLine');
+        const angleArc = document.getElementById('angleArc');
+        
+        const txtHyp = document.getElementById('txtHyp');
+        const txtSin = document.getElementById('txtSin');
+        
+        const calcSin = document.getElementById('calcSin');
+        const calcCos = document.getElementById('calcCos');
+
+        function updateTrig() {
+            const angleDeg = parseInt(slider.value);
+            angleVal.innerText = angleDeg;
+            
+            // Переводим градусы в радианы для JavaScript вычислений
+            const angleRad = (angleDeg * Math.PI) / 180;
+            
+            // Вычисляем синус и косинус
+            const s = Math.sin(angleRad);
+            const c = Math.cos(angleRad);
+            
+            // Длина гипотенузы на экране в пикселях зафиксирована (пусть будет 200 пикселей)
+            const hypPx = 200;
+            const startX = 50;
+            const startY = 190;
+            
+            // Вычисляем длину сторон в пикселях экрана
+            const widthPx = hypPx * c;
+            const heightPx = hypPx * s;
+            
+            // Координаты вершин треугольника горы
+            const cornerX = startX + widthPx;
+            const cornerY = startY;
+            const topX = startX + widthPx;
+            const topY = startY - heightPx;
+            
+            // Отрисовываем треугольник горы
+            mountain.setAttribute('points', `${startX},${startY} ${cornerX},${cornerY} ${topX},${topY}`);
+            
+            // Подсвечиваем цветные индикаторы катетов
+            heightLine.setAttribute('x1', cornerX);
+            heightLine.setAttribute('y1', cornerY);
+            heightLine.setAttribute('x2', topX);
+            heightLine.setAttribute('y2', topY);
+            
+            groundLine.setAttribute('x1', startX);
+            groundLine.setAttribute('y1', startY);
+            groundLine.setAttribute('x2', cornerX);
+            groundLine.setAttribute('y2', cornerY);
+            
+            // Двигаем текст на графике вслед за изменениями горы
+            txtHyp.setAttribute('x', startX + (widthPx / 2) - 30);
+            txtHyp.setAttribute('y', startY - (heightPx / 2) - 15);
+            
+            txtSin.setAttribute('x', cornerX + 8);
+            txtSin.setAttribute('y', startY - (heightPx / 2));
+            txtSin.textContent = `Высота = ${Math.round(100 * s)} м`;
+            
+            // Рисуем дугу угла наклона горы
+            if (angleDeg > 0) {
+                const arcX = startX + 30 * c;
+                const arcY = startY - 30 * s;
+                angleArc.setAttribute('d', `M ${startX + 30} ${startY} A 30 30 0 0 0 ${arcX} ${arcY}`);
+            } else {
+                angleArc.setAttribute('d', 'M 0 0');
+            }
+            
+            // Выводим текстовые тригонометрические расчеты в панель
+            calcSin.innerHTML = `Синус (${angleDeg}&deg;) = ${s.toFixed(4)} &rarr; Высота: 100 м &middot; ${s.toFixed(4)} = <strong>${(100 * s).toFixed(1)} м</strong>`;
+            calcCos.innerHTML = `Косинус (${angleDeg}&deg;) = ${c.toFixed(4)} &rarr; Расстояние по земле: 100 м &middot; ${c.toFixed(4)} = <strong>${(100 * c).toFixed(1)} м</strong>`;
+        }
+
+        slider.addEventListener('input', updateTrig);
+        updateTrig(); // Запуск при старте
+    </script>
+</body>
+</html>
