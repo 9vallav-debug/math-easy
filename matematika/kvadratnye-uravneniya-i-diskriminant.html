@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 5: Квадратные уравнения и Дискриминант</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-main { font-size: 1.5em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
+        
+        /* Стили для интерактивного калькулятора */
+        .calc-container { background: #e2e8f0; padding: 20px; border-radius: 8px; margin: 25px 0; border: 2px dashed #cbd5e0; text-align: center; }
+        .input-group { margin: 15px 0; font-size: 1.2em; font-family: 'Times New Roman', serif; font-weight: bold; }
+        .calc-input { width: 50px; padding: 5px; font-size: 1em; text-align: center; border-radius: 4px; border: 1px solid #a0aec0; margin: 0 5px; }
+        .result-box { background: white; padding: 15px; border-radius: 6px; margin-top: 15px; text-align: left; display: none; border-left: 5px solid #3182ce; }
+        .badge { display: inline-block; padding: 4px 8px; color: white; font-weight: bold; border-radius: 4px; font-size: 0.9em; margin-bottom: 10px; }
+        .badge-success { background-color: #38a169; }
+        .badge-warning { background-color: #dd6b20; }
+        .badge-danger { background-color: #e53e3e; }
+
+        /* Стили для интерактивного теста */
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 5. Квадратные уравнения и Дискриминант: универсальное оружие</h1>
+        <p>В прошлых уроках мы щелкали линейные уравнения, где переменная была в первой степени. Но как только над иксом появляется двойка, уравнение становится <strong>квадратным</strong>.</p>
+        <p>Любое стандартное квадратное уравнение выглядит как конструктор из трех элементов:</p>
+        <div class="formula-main">ax<sup>2</sup> + bx + c = 0</div>
+        <p>Где <span class="formula-inline">a</span>, <span class="formula-inline">b</span> и <span class="formula-inline">c</span> — это обычные числа-коэффициенты. Чтобы решить абсолютно любое такое уравнение, математики используют универсального судью — <strong>Дискриминант (D)</strong>.</p>
+    </div>
+
+    <!-- НАША ЖИВАЯ ИНТЕРАКТИВНАЯ ЛАБОРАТОРИЯ -->
+    <div class="lesson-block">
+        <h2>🔬 Интерактивный симулятор Дискриминанта</h2>
+        <p>Впишите свои числа в окошки ниже (можно вводить и отрицательные числа, например, -5), чтобы бот мгновенно разобрал уравнение по шагам:</p>
+        
+        <div class="calc-container">
+            <div class="input-group">
+                <input type="number" id="inputA" class="calc-input" value="1"> x<sup>2</sup> + 
+                <input type="number" id="inputB" class="calc-input" value="-5"> x + 
+                <input type="number" id="inputC" class="calc-input" value="6"> = 0
+            </div>
+            <button id="btnCalc" style="background-color: #3182ce; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 1em;">Вычислить по шагам →</button>
+            
+            <!-- Блок вывода живых результатов -->
+            <div id="calcResult" class="result-box">
+                <div id="rootsBadge" class="badge"></div>
+                <div id="step1" style="margin-bottom: 8px;"></div>
+                <div id="step2" style="margin-bottom: 8px;"></div>
+                <div id="step3" style="font-weight: bold; color: #2b6cb0;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-block">
+        <h2>1. Судейство дискриминанта</h2>
+        <p>Формула дискриминанта проста: <span class="formula-inline">D = b<sup>2</sup> - 4ac</span>. Его знак определяет судьбу уравнения:</p>
+        <ul>
+            <li>Если <span class="formula-inline">D &gt; 0</span> — уравнение имеет <strong>2 разных корня</strong>.</li>
+            <li>Если <span class="formula-inline">D = 0</span> — уравнение имеет <strong>1 корень</strong>.</li>
+            <li>Если <span class="formula-inline">D &lt; 0</span> — <strong>корней нет</strong> (в школе нас учат, что из отрицательного числа нельзя извлечь квадратный корень).</li>
+        </ul>
+        <p>Сами корни считаются по финальной формуле: <span class="formula-inline">x = (-b ± &radic;D) / 2a</span>.</p>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Проверь себя: мини-тест</h2>
+        <details>
+            <summary>Вопрос №1: Сколько корней имеет уравнение x² - 4x + 5 = 0?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: Ни одного корня.</strong></p>
+                <p><em>Разбор:</em> Считаем дискриминант: <span class="formula-inline">D = (-4)<sup>2</sup> - 4 · 1 · 5 = 16 - 20 = -4</span>. Так как <span class="formula-inline">D &lt; 0</span>, корней нет. (Вы можете проверить это, введя числа 1, -4 и 5 в наш калькулятор выше!).</p>
+            </div>
+        </details>
+    </div>
+
+    <!-- МАГИЧЕСКИЙ ДВИЖОК JAVASCRIPT ДЛЯ АВТОМАТИЧЕСКИХ РАСЧЕТОВ -->
+    <script>
+        const btn = document.getElementById('btnCalc');
+        const resBox = document.getElementById('calcResult');
+        
+        btn.addEventListener('click', function() {
+            const a = parseFloat(document.getElementById('inputA').value);
+            const b = parseFloat(document.getElementById('inputB').value);
+            const c = parseFloat(document.getElementById('inputC').value);
+            
+            if (isNaN(a) || isNaN(b) || isNaN(c) || a === 0) {
+                alert('Пожалуйста, введите корректные числа. Коэффициент "a" не должен быть равен 0!');
+                return;
+            }
+            
+            // 1. Вычисляем Дискриминант
+            const D = (b * b) - (4 * a * c);
+            
+            const badge = document.getElementById('rootsBadge');
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            
+            // Очищаем цвета значков
+            badge.className = 'badge';
+            
+            step1.innerHTML = `<strong>Шаг 1. Находим Дискриминант:</strong><br>D = (${b})<sup>2</sup> - 4 · ${a} · ${c} = ${b*b} - ${4*a*c} = <strong>${D}</strong>`;
+            
+            // 2. Логика судейства корней
+            if (D > 0) {
+                badge.innerText = 'D > 0: Уравнение имеет 2 корня';
+                badge.classList.add('badge-success');
+                
+                const sqrtD = Math.sqrt(D);
+                const x1 = ((-b + sqrtD) / (2 * a)).toFixed(2);
+                const x2 = ((-b - sqrtD) / (2 * a)).toFixed(2);
+                
+                step2.innerHTML = `<strong>Шаг 2. Извлекаем корень из D:</strong><br>&radic;D = &radic;${D} = ${sqrtD.toFixed(2)}`;
+                step3.innerHTML = `Ответ: x<sub>1</sub> = ${x1}, x<sub>2</sub> = ${x2}`;
+            } else if (D === 0) {
+                badge.innerText = 'D = 0: Уравнение имеет 1 корень';
+                badge.classList.add('badge-warning');
+                
+                const x = ((-b) / (2 * a)).toFixed(2);
+                
+                step2.innerHTML = `<strong>Шаг 2. Так как D = 0, корень извлекать не нужно.</strong>`;
+                step3.innerHTML = `Ответ: x = ${x}`;
+            } else {
+                badge.innerText = 'D < 0: Действительных корней нет';
+                badge.classList.add('badge-danger');
+                
+                step2.innerHTML = `<strong>Шаг 2. Извлечь корень из числа ${D} в школьной программе нельзя.</strong>`;
+                step3.innerHTML = `Ответ: Корней нет`;
+            }
+            
+            // Плавно показываем блок с ответом
+            resBox.style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>
