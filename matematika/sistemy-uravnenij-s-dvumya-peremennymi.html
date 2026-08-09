@@ -50,13 +50,18 @@
             <input type="range" id="systemSlider" class="slider" min="-4" max="4" step="2" value="0">
             
             <br>
-            <!-- Вывод РЕАЛЬНЫХ динамических уравнений системы -->
-            <div class="system-display">
-                <div class="system-bracket">{</div>
-                <div>x + y = 6</div>
-                <div>x - y = <span id="eqBlueValue" style="color: #3182ce;">0</span></div>
-            </div>
+           
 
+<!-- Вывод динамических уравнений системы со скобкой -->
+<div class="system-display">
+    <div class="system-bracket">{</div>
+    <div class="system-lines">
+        <div style="color: #e53e3e;">x + y = 6</div>
+        <div style="color: #3182ce;">x - y = <span id="eqBlueValue">0</span></div>
+    </div>
+</div>
+
+            
             <div style="margin-top: 5px;">Текущий ответ системы (точка пересечения): <span id="coordLabel" class="live-value">x = 3, y = 3</span></div>
         </div>
 
