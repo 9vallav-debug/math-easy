@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 11: Проценты и Пропорции</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
+        
+        /* Стили для интерактивных калькуляторов */
+        .tool-container { background: #edf2f7; border: 2px dashed #cbd5e0; border-radius: 8px; padding: 20px; margin: 20px 0; display: flex; flex-direction: column; align-items: center; }
+        .control-panel { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; width: 100%; box-sizing: border-box; }
+        .slider { width: 65%; max-width: 250px; cursor: pointer; vertical-align: middle; margin: 0 10px; }
+        .live-value { font-weight: bold; color: #b7791f; font-size: 1.1em; }
+        .result-box { background: white; padding: 12px; border-radius: 6px; border-left: 5px solid #b7791f; text-align: left; width: 100%; box-sizing: border-box; }
+        
+        /* Стили для схемы креста */
+        .cross-box { display: flex; justify-content: space-around; width: 100%; max-width: 300px; margin: 15px auto; font-family: monospace; font-size: 1.2em; font-weight: bold; position: relative; }
+        .cross-line-1 { position: absolute; width: 100px; height: 2px; background: #e53e3e; top: 22px; left: 100px; transform: rotate(20deg); }
+        .cross-line-2 { position: absolute; width: 100px; height: 2px; background: #e53e3e; top: 22px; left: 100px; transform: rotate(-20deg); }
+
+        details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
+        details[open] { background: #e2e8f0; }
+        summary { font-weight: bold; outline: none; }
+        .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 11. Проценты и Пропорции: Секреты быстрых вычислений</h1>
+        <p>Каждый день мы сталкиваемся со скидками в магазинах или необходимостью изменить количество ингредиентов в рецепте. Проценты и пропорции — это наши главные повседневные инструменты.</p>
+        <ul>
+            <li><strong>Процент (%)</strong> — это просто <strong>одна сотая часть</strong> от любого числа. Представьте, что пирог разрезали на 100 кусочков. 1 кусочек — это 1%.</li>
+            <li><strong>Пропорция</strong> — это равенство двух дробей (отношений), которое показывает, как одни величины зависят от других.</li>
+        </ul>
+    </div>
+
+    <!-- ТРЕНАЖЕР 1. ПРОПОРЦИИ (КУЛИНАРИЯ) -->
+    <div class="lesson-block">
+        <h2>🥞 1. Лаборатория пропорций: «Правило креста»</h2>
+        <p>В оригинальном рецепте блинчиков сказано: на <strong>400 г муки</strong> нужно взять <strong>200 г сахара</strong>. Но у вас осталось другое количество муки! Подвигайте ползунок муки, и робот по «правилу креста» мгновенно рассчитает идеальную порцию сахара:</p>
+        
+        <div class="tool-container">
+            <div class="control-panel">
+                Доступно муки: <input type="range" id="sliderFlour" class="slider" min="100" max="600" step="50" value="300"> <span id="valFlour" class="live-value" style="color: #3182ce;">300</span> г
+            </div>
+
+            <!-- Визуальная схема пропорции -->
+            <div style="text-align: center; font-weight: bold; margin-bottom: 10px;">Схема пропорции:</div>
+            <div class="cross-box">
+                <div style="text-align: left; color: #3182ce;">400 г муки<br><span id="liveFlour" style="color: #3182ce;">300</span> г муки</div>
+                <div class="cross-line-1"></div>
+                <div class="cross-line-2"></div>
+                <div style="text-align: right; color: #b7791f;">200 г сахара<br><span id="liveSugar" style="color: #38a169;">X</span> г сахара</div>
+            </div>
+
+            <div class="result-box" style="border-left-color: #3182ce;">
+                <div id="propSteps"><strong>Расчет по правилу креста:</strong><br>Перемножаем числа по диагонали и делим на оставшееся «одинокое» число 400.</div>
+                <div id="propResult" style="font-weight: bold; color: #3182ce; margin-top: 5px; font-size: 1.1em;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ТРЕНАЖЕР 2. ПРОЦЕНТЫ (ШОПИНГ) -->
+    <div class="lesson-block">
+        <h2>💰 2. Финансовый симулятор: Считаем скидки</h2>
+        <p>Настраивайте цену товара и размер праздничной скидки. JavaScript мгновенно вычислит сумму экономии и сумму, которую нужно отдать на кассе:</p>
+        
+        <div class="tool-container">
+            <div class="control-panel">
+                <div style="margin-bottom: 10px;">
+                    Исходная цена: <input type="range" id="sliderPrice" class="slider" min="1000" max="10000" step="500" value="4000"> <span id="valPrice" class="live-value" style="color: #2b6cb0;">4000</span> руб.
+                </div>
+                <div>
+                    Размер скидки: <input type="range" id="sliderSale" class="slider" min="5" max="75" step="5" value="20"> <span id="valSale" class="live-value" style="color: #e53e3e;">20</span>%
+                </div>
+            </div>
+
+            <div class="result-box" style="border-left-color: #e53e3e;">
+                <div id="percentSteps"></div>
+                <div id="percentResult" style="font-weight: bold; color: #38a169; margin-top: 5px; font-size: 1.1em;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-block">
+        <h2>3. Проверь себя: мини-тест</h2>
+        <details>
+            <summary>Вопрос №1: В магазине куртка стоит 6000 рублей. Скидка составляет 15%. Сколько рублей вы сэкономите?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: 900 рублей.</strong></p>
+                <p><em>Разбор:</em> Считаем в уме через быстрые доли. 10% от 6000 — это 600 рублей. 5% — это половина от 10% (то есть 300 рублей). Складываем доли: <span class="formula-inline">600 + 300 = 900</span> рублей экономии! (Проверьте это, выставив 6000 и 15% на нашем финансовом симуляторе выше!).</p>
+            </div>
+        </details>
+    </div>
+
+    <!-- КУЛИНАРНО-ФИНАНСОВЫЙ ДВИЖОК JAVASCRIPT -->
+    <script>
+        // Элементы пропорций
+        const sliderFlour = document.getElementById('sliderFlour');
+        const valFlour = document.getElementById('valFlour');
+        const liveFlour = document.getElementById('liveFlour');
+        const liveSugar = document.getElementById('liveSugar');
+        const propResult = document.getElementById('propResult');
+        
+        // Элементы процентов
+        const sliderPrice = document.getElementById('sliderPrice');
+        const sliderSale = document.getElementById('sliderSale');
+        const valPrice = document.getElementById('valPrice');
+        const valSale = document.getElementById('valSale');
+        const percentSteps = document.getElementById('percentSteps');
+        const percentResult = document.getElementById('percentResult');
+
+        function updateProportion() {
+            const flour = parseFloat(sliderFlour.value);
+            valFlour.innerText = flour;
+            liveFlour.innerText = flour;
+            
+            // Вычисляем сахар по правилу креста: (flour * 200) / 400
+            const sugar = (flour * 200) / 400;
+            liveSugar.innerText = sugar;
+            
+            propResult.innerHTML = "Итог: На " + flour + " г муки вам потребуется ровно <strong>" + sugar + " г сахара</strong>.";
+        }
+
+        function updatePercent() {
+            const price = parseFloat(sliderPrice.value);
+            const sale = parseFloat(sliderSale.value);
+            
+            valPrice.innerText = price;
+            valSale.innerText = sale;
+            
+            // Считаем экономию и финальную цену
+            const economy = (price * sale) / 100;
+            const finalPrice = price - economy;
+            
+            percentSteps.innerHTML = "<strong>Шаг 1. Считаем скидку:</strong> (" + price + " &middot; " + sale + ") / 100 = " + economy + " руб.<br><strong>Шаг 2. Вычитаем из базовой цены:</strong> " + price + " - " + economy + " = " + finalPrice + " руб.";
+            percentResult.innerHTML = "К оплате на кассе: <strong>" + finalPrice + " рублей</strong> (Вы сэкономили " + economy + " руб.!)";
+        }
+
+        // Привязываем слушатели
+        sliderFlour.addEventListener('input', updateProportion);
+        sliderPrice.addEventListener('input', updatePercent);
+        sliderSale.addEventListener('input', updatePercent);
+
+        // Инициализация при старте
+        updateProportion();
+        updatePercent();
+    </script>
+</body>
+</html>
