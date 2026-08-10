@@ -14,14 +14,14 @@
         .formula-main { font-size: 1.5em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
         .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
         
-        /* Стили для табов переключения фигур */
+        /* Стили для вкладок */
         .tabs { display: flex; justify-content: space-around; margin-bottom: 15px; background: #cbd5e0; padding: 5px; border-radius: 6px; }
         .tab-btn { background: none; border: none; padding: 8px 12px; font-weight: bold; cursor: pointer; border-radius: 4px; color: #4a5568; font-size: 0.95em; transition: all 0.2s; }
         .tab-btn.active { background: white; color: #3182ce; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         
         .area-container { background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 8px; padding: 20px; margin: 20px 0; display: flex; flex-direction: column; align-items: center; }
         .control-panel { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 15px; text-align: center; width: 100%; box-sizing: border-box; }
-        .slider-group { margin: 10px 0; font-weight: bold; }
+        .slider-group { margin: 10px 0; font-weight: bold; display: none; } /* Изначально скрываем все ползунки */
         .slider { width: 60%; max-width: 250px; cursor: pointer; vertical-align: middle; margin: 0 10px; }
         .live-value { font-weight: bold; color: #3182ce; }
         
@@ -41,48 +41,51 @@
 
     <div class="lesson-block">
         <h1>Урок 10. Площади фигур: математика ремонта и заказа пиццы</h1>
-        <p><strong>Площадь (S)</strong> — это размер плоскости, которую фигура занимает на полу, столе или листе бумаги. Она всегда измеряется в «квадратных» единицах (квадратных метрах, сантиметрах или миллиметрах).</p>
-        <p>В этом юбилейном уроке мы объединим геометрию с практикой. Ниже представлена интерактивная лаборатория, которая наглядно покажет физический смысл формул площадей для 4 главных фигур.</p>
+        <p><strong>Площадь (S)</strong> — это размер плоскости, которую фигура занимает на поверхности. Она всегда измеряется в «квадратных» единицах.</p>
     </div>
 
-    <!-- НАША ЖИВАЯ ГЕОМЕТРИЧЕСКАЯ ЛАБОРАТОРИЯ ПЛОЩАДЕЙ -->
     <div class="lesson-block">
         <h2>🔬 Интерактивный симулятор площадей</h2>
-        <p>Выберите нужную геометрическую фигуру с помощью вкладок, настраивайте её габариты ползунками и смотрите на мгновенный расчет плоскости:</p>
         
         <div class="area-container">
-            <!-- Кнопки-вкладки -->
+            <!-- Кнопки переключения фигур -->
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchShape('rect')">Прямоугольник</button>
-                <button class="tab-btn" onclick="switchShape('triangle')">Треугольник</button>
-                <button class="tab-btn" onclick="switchShape('circle')">Круг</button>
+                <button id="btnRect" class="tab-btn active" onclick="switchShape('rect')">Прямоугольник</button>
+                <button id="btnTriangle" class="tab-btn" onclick="switchShape('triangle')">Треугольник</button>
+                <button id="btnCircle" class="tab-btn" onclick="switchShape('circle')">Круг</button>
             </div>
 
-            <!-- Пульт управления размерами -->
+            <!-- Пульт управления (Все ползунки созданы заранее) -->
             <div class="control-panel">
-                <div id="ctrlParam1" class="slider-group">
-                    Сторона a (высота): <input type="range" id="sliderP1" class="slider" min="2" max="7" step="0.5" value="4"> <span id="valP1" class="live-value">4</span> м
+                <div id="panelRectA" class="slider-group" style="display: block;">
+                    Сторона a (высота): <input type="range" id="sliderRectA" class="slider" min="2" max="7" step="0.5" value="4"> <span id="valRectA" class="live-value">4</span> м
                 </div>
-                <div id="ctrlParam2" class="slider-group">
-                    Сторона b (ширина): <input type="range" id="sliderP2" class="slider" min="2" max="7" step="0.5" value="6"> <span id="valP2" class="live-value">6</span> м
+                <div id="panelRectB" class="slider-group" style="display: block;">
+                    Сторона b (ширина): <input type="range" id="sliderRectB" class="slider" min="2" max="7" step="0.5" value="6"> <span id="valRectB" class="live-value">6</span> м
+                </div>
+                <div id="panelTriH" class="slider-group">
+                    Высота h (вверх): <input type="range" id="sliderTriH" class="slider" min="2" max="7" step="0.5" value="5"> <span id="valTriH" class="live-value">5</span> м
+                </div>
+                <div id="panelTriA" class="slider-group">
+                    Основание a (ширина): <input type="range" id="sliderTriA" class="slider" min="2" max="7" step="0.5" value="6"> <span id="valTriA" class="live-value">6</span> м
+                </div>
+                <div id="panelCircleR" class="slider-group">
+                    Радиус r (от центра): <input type="range" id="sliderCircleR" class="slider" min="1.5" max="3.5" step="0.5" value="2.5"> <span id="valCircleR" class="live-value">2.5</span> м
                 </div>
             </div>
 
-            <!-- Экран динамической SVG-графики -->
+            <!-- Экран чертежа SVG -->
             <div class="canvas-wrapper">
-                <svg viewBox="0 0 300 180" id="shapeSvg">
-                    <!-- Прямоугольник (дефолт) -->
+                <svg viewBox="0 0 300 180">
+                    <!-- Фигуры -->
                     <rect id="svgRect" x="60" y="30" width="180" height="120" fill="#ebf8ff" stroke="#3182ce" stroke-width="3" />
-                    <!-- Треугольник (скрыт) -->
-                    <polygon id="svgTriangle" points="150,30 60,150 240,150" fill="#e6fffa" stroke="#319795" stroke-width="3" display="none" />
-                    <!-- Круг (скрыт) -->
-                    <circle id="svgCircle" cx="150" cy="90" r="60" fill="#fff5f5" stroke="#e53e3e" stroke-width="3" display="none" />
-                    <!-- Вспомогательная линия радиуса или высоты -->
-                    <line id="svgHelpLine" x1="150" y1="90" x2="210" y2="90" stroke="#e53e3e" stroke-width="2" stroke-dasharray="4" display="none" />
+                    <polygon id="svgTriangle" points="150,30 60,150 240,150" fill="#e6fffa" stroke="#319795" stroke-width="3" style="display: none;" />
+                    <circle id="svgCircle" cx="150" cy="90" r="60" fill="#fff5f5" stroke="#e53e3e" stroke-width="3" style="display: none;" />
+                    <line id="svgHelpLine" x1="150" y1="90" x2="210" y2="90" stroke="#e53e3e" stroke-width="2" stroke-dasharray="4" style="display: none;" />
                     
-                    <!-- Текстовые метки на схеме -->
-                    <text id="svgText1" x="35" y="95" font-weight="bold" font-size="12" fill="#2d3748">a</text>
-                    <text id="svgText2" x="140" y="165" font-weight="bold" font-size="12" fill="#2d3748">b</text>
+                    <!-- Буквенные маркеры на чертеже -->
+                    <text id="svgText1" x="35" y="95" font-weight="bold" font-size="14" fill="#2d3748">a</text>
+                    <text id="svgText2" x="145" y="168" font-weight="bold" font-size="14" fill="#2d3748">b</text>
                 </svg>
             </div>
 
@@ -96,30 +99,25 @@
     </div>
 
     <div class="lesson-block">
-        <h2>2. Проверь себя: мини-тест</h2>
+        <h2>2. Проверь себя: mini-тест</h2>
         <details>
             <summary>Вопрос №1: Что больше по площади: одна большая круглая пицца радиусом 20 см или две маленькие радиусом 10 см?</summary>
             <div class="test-answer">
                 <p><strong>Правильный ответ: Одна большая пицца ровно в 2 раза больше двух маленьких!</strong></p>
-                <p><em>Разбор:</em> Магия площади круга кроется в формуле <span class="formula-inline">S = &pi;r<sup>2</sup></span> (радиус возводится в квадрат). Площадь маленьких: <span class="formula-inline">2 · (&pi; · 10<sup>2</sup>) = 200&pi;</span>. Площадь большой: <span class="formula-inline">&pi; · 20<sup>2</sup> = 400&pi;</span>. Математика рушит интуицию!</p>
+                <p><em>Разбор:</em> По формуле S = &pi;r², радиус большой пиццы дает 20² = 400, а две маленькие дают лишь 2 · 10² = 200. Одна большая пицца выгоднее!</p>
             </div>
         </details>
     </div>
 
-    <!-- МАТЕМАТИЧЕСКИЙ ДВИЖОК ТАБОВ И РАСЧЕТОВ JAVASCRIPT -->
+    <!-- АБСОЛЮТНО НАДЕЖНЫЙ СНАЙПЕРСКИЙ ДВИЖОК -->
     <script>
         let currentShape = 'rect';
         
-        const sliderP1 = document.getElementById('sliderP1');
-        const sliderP2 = document.getElementById('sliderP2');
-        const valP1 = document.getElementById('valP1');
-        const valP2 = document.getElementById('valP2');
-        
+        // Получаем все элементы со страницы
         const svgRect = document.getElementById('svgRect');
         const svgTriangle = document.getElementById('svgTriangle');
         const svgCircle = document.getElementById('svgCircle');
         const svgHelpLine = document.getElementById('svgHelpLine');
-        
         const svgText1 = document.getElementById('svgText1');
         const svgText2 = document.getElementById('svgText2');
         
@@ -130,53 +128,53 @@
         function switchShape(shape) {
             currentShape = shape;
             
-            // Переключаем активный класс на кнопках табов
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            // Наводим порядок в кнопках меню
+            document.getElementById('btnRect').classList.remove('active');
+            document.getElementById('btnTriangle').classList.remove('active');
+            document.getElementById('btnCircle').classList.remove('active');
             
-            // Сбрасываем и настраиваем видимость элементов и ползунков под фигуру
+            // Прячем абсолютно все панели управления
+            document.getElementById('panelRectA').style.display = 'none';
+            document.getElementById('panelRectB').style.display = 'none';
+            document.getElementById('panelTriH').style.display = 'none';
+            document.getElementById('panelTriA').style.display = 'none';
+            document.getElementById('panelCircleR').style.display = 'none';
+            
+            // Прячем фигуры на чертеже
             svgRect.style.display = 'none';
             svgTriangle.style.display = 'none';
             svgCircle.style.display = 'none';
             svgHelpLine.style.display = 'none';
-            document.getElementById('ctrlParam2').style.display = 'block';
             
+            // Включаем только то, что относится к выбранной фигуре
             if (shape === 'rect') {
+                document.getElementById('btnRect').classList.add('active');
+                document.getElementById('panelRectA').style.display = 'block';
+                document.getElementById('panelRectB').style.display = 'block';
                 svgRect.style.display = 'block';
-                document.getElementById('ctrlParam1').innerHTML = 'Сторона a (высота): <input type="range" id="sliderP1" class="slider" min="2" max="7" step="0.5" value="4"> <span id="valP1" class="live-value">4</span> м';
-                document.getElementById('ctrlParam2').innerHTML = 'Сторона b (ширина): <input type="range" id="sliderP2" class="slider" min="2" max="7" step="0.5" value="6"> <span id="valP2" class="live-value">6</span> м';
             } else if (shape === 'triangle') {
-                svgTriangle.style.display = 'block';
-                document.getElementById('ctrlParam1').innerHTML = 'Высота h (вверх): <input type="range" id="sliderP1" class="slider" min="2" max="7" step="0.5" value="5"> <span id="valP1" class="live-value">5</span> м';
-    
+                document.getElementById('btnTriangle').classList.add('active');
+                document.getElementById('panelTriH').style.display = 'block';
+                document.getElementById('panelTriA').style.display = 'block';
 
-document.getElementById('ctrlParam2').innerHTML = 'Основание a (ширина): 6 м';
+
+svgTriangle.style.display = 'block';
 } else if (shape === 'circle') {
+document.getElementById('btnCircle').classList.add('active');
+document.getElementById('panelCircleR').style.display = 'block';
 svgCircle.style.display = 'block';
 svgHelpLine.style.display = 'block';
-document.getElementById('ctrlParam1').innerHTML = 'Радиус r (от центра): 2.5 м';
-document.getElementById('ctrlParam2').style.display = 'none'; // для круга ширина не нужна
-}
-// Перепривязываем слушатели к свежесозданным ползункам внутри табов
-document.getElementById('sliderP1').addEventListener('input', calculateArea);
-if (shape !== 'circle') {
-document.getElementById('sliderP2').addEventListener('input', calculateArea);
 }
 calculateArea();
 }
 function calculateArea() {
-const p1 = parseFloat(document.getElementById('sliderP1').value);
-document.getElementById('valP1').innerText = p1;
-let p2 = 0;
-if (currentShape !== 'circle') {
-p2 = parseFloat(document.getElementById('sliderP2').value);
-document.getElementById('valP2').innerText = p2;
-}
 if (currentShape === 'rect') {
-// Пересчитываем пиксели SVG: 1 м = 20 пикселей
-const w = p2 * 20;
-const h = p1 * 20;
+const a = parseFloat(document.getElementById('sliderRectA').value);
+const b = parseFloat(document.getElementById('sliderRectB').value);
+document.getElementById('valRectA').innerText = a;
+document.getElementById('valRectB').innerText = b;
+const w = b * 20;
+const h = a * 20;
 svgRect.setAttribute('width', w);
 svgRect.setAttribute('height', h);
 svgRect.setAttribute('x', 150 - (w / 2));
@@ -185,16 +183,21 @@ svgText1.style.display = 'block';
 svgText1.setAttribute('x', 150 - (w / 2) - 15);
 svgText1.setAttribute('y', 95);
 svgText1.textContent = "a";
+svgText2.style.display = 'block';
 svgText2.setAttribute('x', 145);
 svgText2.setAttribute('y', 90 + (h / 2) + 18);
 svgText2.textContent = "b";
-const s = p1 * p2;
+const s = a * b;
 lifeExample.innerText = "Пример: Считаем площадь пола комнаты для укладки ламината.";
 formulaText.innerHTML = "Формула: S = a · b";
-calcSteps.innerHTML = "Расчет: S = " + p1 + " м · " + p2 + " м = " + s.toFixed(1) + " м²";
+calcSteps.innerHTML = "Расчет: S = " + a + " м · " + b + " м = " + s.toFixed(1) + " м²";
 } else if (currentShape === 'triangle') {
-const w = p2 * 20;
-const h = p1 * 20;
+const hVal = parseFloat(document.getElementById('sliderTriH').value);
+const aVal = parseFloat(document.getElementById('sliderTriA').value);
+document.getElementById('valTriH').innerText = hVal;
+document.getElementById('valTriA').innerText = aVal;
+const w = aVal * 20;
+const h = hVal * 20;
 const startX = 150 - (w / 2);
 const endX = 150 + (w / 2);
 const bottomY = 90 + (h / 2);
@@ -204,34 +207,43 @@ svgText1.style.display = 'block';
 svgText1.setAttribute('x', 155);
 svgText1.setAttribute('y', 95);
 svgText1.textContent = "h";
+svgText2.style.display = 'block';
 svgText2.setAttribute('x', 145);
 svgText2.setAttribute('y', bottomY + 18);
 svgText2.textContent = "a";
-const s = 0.5 * p1 * p2;
+const s = 0.5 * hVal * aVal;
 lifeExample.innerText = "Пример: Измеряем площадь треугольного фронтона крыши дома под покраску.";
 formulaText.innerHTML = "Формула: S = ½ · a · h";
-calcSteps.innerHTML = "Расчет: S = ½ · " + p2 + " м · " + p1 + " м = " + s.toFixed(1) + " м²";
+calcSteps.innerHTML = "Расчет: S = ½ · " + aVal + " м · " + hVal + " м = " + s.toFixed(1) + " м²";
 } else if (currentShape === 'circle') {
-const rPx = p1 * 30; // Масштаб побольше для круга
+const r = parseFloat(document.getElementById('sliderCircleR').value);
+document.getElementById('valCircleR').innerText = r;
+const rPx = r * 30;
 svgCircle.setAttribute('r', rPx);
 svgHelpLine.setAttribute('x1', 150);
 svgHelpLine.setAttribute('y1', 90);
 svgHelpLine.setAttribute('x2', 150 + rPx);
 svgHelpLine.setAttribute('y2', 90);
-svgText1.style.display = 'none'; // вертикальная метка не нужна
+svgText1.style.display = 'none'; // Буква 'a' больше не нужна, прячем её!
+svgText2.style.display = 'block';
 svgText2.setAttribute('x', 150 + (rPx / 2));
 svgText2.setAttribute('y', 85);
-svgText2.textContent = "r";
-const s = Math.PI * p1 * p1;
+svgText2.textContent = "r"; // Меняем букву 'b' на радиус 'r'!
+const s = Math.PI * r * r;
 lifeExample.innerText = "Пример: Рассчитываем точный размер круглой пиццы для обеда.";
 formulaText.innerHTML = "Формула: S = π · r² (где π ≈ 3.14)";
-calcSteps.innerHTML = "Расчет: S = 3.14 · " + p1 + "² = 3.14 · " + (p1*p1).toFixed(2) + " = " + s.toFixed(1) + " м²";
+calcSteps.innerHTML = "Расчет: S = 3.14 · " + r + "² = 3.14 · " + (r*r).toFixed(2) + " = " + s.toFixed(1) + " м²";
 }
 }
-// Запуск первой привязкой
-document.getElementById('sliderP1').addEventListener('input', calculateArea);
-document.getElementById('sliderP2').addEventListener('input', calculateArea);
+// Навешиваем слушатели на все ползунки сразу при старте страницы
+document.getElementById('sliderRectA').addEventListener('input', calculateArea);
+document.getElementById('sliderRectB').addEventListener('input', calculateArea);
+document.getElementById('sliderTriH').addEventListener('input', calculateArea);
+document.getElementById('sliderTriA').addEventListener('input', calculateArea);
+document.getElementById('sliderCircleR').addEventListener('input', calculateArea);
+// Первый запуск для инициализации прямоугольника
 calculateArea();
+
 
 
 
@@ -239,7 +251,3 @@ calculateArea();
 
 </body> <!-- ЗАКРЫВАЕМ ТЕЛО СТРАНИЦЫ -->
 </html> <!-- ЗАКРЫВАЕМ ВЕСЬ ДОКУМЕНТ -->
-
-
-</body>
-</html>->
