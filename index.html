@@ -10,15 +10,18 @@
         .block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .welcome-box { background-color: #ebf8ff; border: 1px solid #bee3f8; border-radius: 8px; padding: 20px; text-align: center; margin-bottom: 25px; }
         
-        /* Стили для ИНТЕРАКТИВНОГО меню на главной */
         details { background: #f8fafc; padding: 15px; border-radius: 6px; margin-bottom: 15px; border-left: 4px solid #3182ce; cursor: pointer; transition: background 0.2s; }
         details[open] { background: #edf2f7; }
         summary { font-weight: bold; font-size: 1.1em; color: #2d3748; outline: none; }
         .menu-content { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; }
         
-        /* Красивая кнопка для перехода к уроку */
         .btn-start { display: inline-block; background-color: #3182ce; color: white !important; padding: 8px 16px; font-weight: bold; text-decoration: none; border-radius: 5px; margin-top: 10px; font-size: 0.9em; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         .btn-start:hover { background-color: #2b6cb0; text-decoration: none; }
+        
+        /* Стили для красивого разделения блоков */
+        .section-title { font-size: 1.25em; font-weight: bold; color: #2b6cb0; margin: 25px 0 12px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 5px; }
+        .section-geo { color: #319795; border-color: #e6fffa; }
+        .section-pract { color: #b7791f; border-color: #fefcbf; }
     </style>
 </head>
 <body>
@@ -29,53 +32,54 @@
     </div>
 
     <div class="block">
-        <h2>🗺️ Оглавление курса (Нажмите на тему)</h2>
-        <div class="section-title">Блок 1. Алгебра и уравнения</div>
-        <!-- Интерактивный Урок 1 -->
-        <details>
+        <h2>🗺️ Оглавление курса</h2>
+        
+        <!-- ================= БЛОК 1 ================= -->
+        <div class="section-title">📊 Блок 1. Алгебра и уравнения</div>
+
+        <details style="border-left-color: #3182ce;">
             <summary>🔑 Урок 1. Теорема Виета</summary>
             <div class="menu-content">
-                <p>Магический подбор корней в уме. Вы узнаете, как решать сложные квадратные уравнения за 5 секунд без использования громоздкого дискриминанта.</p>
+                <p>Магический подбор корней в уме. Вы узнаете, как решать сложные квадратные уравнения за 5 секунд без дискриминанта.</p>
                 <a href="matematika/teorema-vieta-prostymi-slovami.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
 
-        <!-- Интерактивный Урок 2 -->
-        <details>
+        <details style="border-left-color: #3182ce;">
             <summary>🔑 Урок 2. Отрицательные числа</summary>
             <div class="menu-content">
-                <p>Разбираем правила работы со знаками «на пальцах». Вы поймете, почему минус на минус всегда дает плюс, используя простую аналогию с денежными долгами.</p>
+                <p>Правила работы со знаками «на пальцах». Почему минус на минус дает плюс через простую аналогию с денежными долгами.</p>
                 <a href="matematika/otricatelnye-chisla-pravila.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
 
-        <!-- Интерактивный Урок 3 -->
-        <details>
+        <details style="border-left-color: #3182ce;">
             <summary>🔑 Урок 3. Линейные уравнения</summary>
             <div class="menu-content">
-                <p>Уравнения с одной переменной. Поймем закон аптекарских чашечных весов и освоим главное правило алгебры: «Иксы — налево, числа — направо».</p>
+                <p>Уравнения с одной переменной. Поймем закон аптекарских весов и освоим главное правило: «Иксы — налево, числа — направо».</p>
                 <a href="matematika/linejnye-uravneniya-s-odnoj-peremennoj.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
 
-        <!-- Интерактивный Урок 4 -->
-        <details>
+        <details style="border-left-color: #3182ce;">
             <summary>🔑 Урок 4. Системы уравнений</summary>
             <div class="menu-content">
-                <p>Настоящее математическое расследование с двумя неизвестными X и Y. Изучим метод подстановки (внедрение шпиона) и графическое пересечение улик.</p>
-                <a href="matematika/sistemy-uravnenij-s-dvumya-peremennymi.html" class="btn-start">Начать урок →</a>
-            </div>
-        </details>
-         <!-- НАШ НОВЫЙ ИНТЕРАКТИВНЫЙ ПЯТЫЙ УРОК -->
-        <details>
-            <summary>🔑 Урок 5. Дискриминант</summary>
-            <div class="menu-content">
-                <p>Универсальное оружие против любых квадратных уравнений. Разберем формулы и протестируем живой пошаговый калькулятор решений.</p>
-                <a href="matematika/kvadratnye-uravneniya-i-diskriminant.html" class="btn-start">Начать урок →</a>
+                <p>Детективное расследование с X и Y. Живой интерактивный график пересечения двух прямых-улик со снайперской точностью.</p>
+                <a href="matematika/sistemy-uravnenij-s-dvumya-peremennymi.html" class="border-left-color btn-start">Начать урок →</a>
             </div>
         </details>
 
-         <!-- НАШ НОВЫЙ ШЕСТОЙ УРОК -->
+        <details style="border-left-color: #3182ce;">
+            <summary>🔑 Урок 5. Дискриминант</summary>
+            <div class="menu-content">
+                <p>Универсальное оружие против любых квадратных уравнений. Встроен живой пошаговый калькулятор со звучным судейством знаков.</p>
+                <a href="matematika/kvadratnye-uravneniya-i-diskriminant.html" class="btn-start">Начать урок →</a>
+            </div>
+        </details>
+        
+        <!-- ================= БЛОК 2 ================= -->
+        <div class="section-title section-geo">📐 Блок 2. Наглядная геометрия</div>
+
         <details style="border-left-color: #319795;">
             <summary>📐 Урок 6. Теорема Пифагора</summary>
             <div class="menu-content">
@@ -83,7 +87,7 @@
                 <a href="matematika/teorema-pifagora-prostymi-slovami.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
-<!-- НАШ НОВЫЙ СЕДЬМОЙ УРОК -->
+
         <details style="border-left-color: #319795;">
             <summary>📐 Урок 7. Что такое Синус и Косинус</summary>
             <div class="menu-content">
@@ -91,7 +95,7 @@
                 <a href="matematika/chto-takoe-sinus-prostymi-slovami.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
-        <!-- НАШ НОВЫЙ ВОСЬМОЙ УРОК -->
+
         <details style="border-left-color: #319795;">
             <summary>📐 Урок 8. Что такое Тангенс угла</summary>
             <div class="menu-content">
@@ -100,7 +104,6 @@
             </div>
         </details>
 
-        <!-- НАШ НОВЫЙ ДЕВЯТЫЙ УРОК -->
         <details style="border-left-color: #319795;">
             <summary>📐 Урок 9. Таблица Брадиса</summary>
             <div class="menu-content">
@@ -108,7 +111,7 @@
                 <a href="matematika/kak-polzovatsya-tablicej-bradisa.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
- <!-- НАШ ФИНАЛЬНЫЙ ЮБИЛЕЙНЫЙ ДЕСЯТЫЙ УРОК -->
+
         <details style="border-left-color: #319795;">
             <summary>📐 Урок 10. Площади фигур</summary>
             <div class="menu-content">
@@ -116,13 +119,18 @@
                 <a href="matematika/ploshhadi-geometricheskih-figur-formuly.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
-       <details style="border-left-color: #b7791f;">
+
+        <!-- ================= БЛОК 3 ================= -->
+        <div class="section-title section-pract">💰 Блок 3. Практическая математика</div>
+
+        <details style="border-left-color: #b7791f;">
             <summary>💰 Урок 11. Проценты и Пропорции</summary>
             <div class="menu-content">
                 <p>Секреты быстрых вычислений для жизни. Интерактивный кулинарный симулятор «правила креста» и финансовый калькулятор скидок на кассе.</p>
                 <a href="matematika/procenty-i-proporcii-prostymi-slovami.html" class="btn-start">Начать урок →</a>
             </div>
         </details>
+        
     </div>
 
 </body>
