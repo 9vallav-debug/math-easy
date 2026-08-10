@@ -11,91 +11,116 @@
         a:hover { text-decoration: underline; }
         .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
         .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
-        .formula-main { font-size: 1.4em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; }
-        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.1em; }
+        .formula-main { font-size: 1.5em; text-align: center; font-weight: bold; color: #2b6cb0; margin: 20px 0; font-family: 'Times New Roman', serif; transition: all 0.3s; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
         
-        /* Стили для интерактивного теста */
+        /* Стили для ЖИВЫХ чашечных весов */
+        .scales-container { background: #edf2f7; border: 2px dashed #cbd5e0; border-radius: 8px; padding: 20px; margin: 20px 0; display: flex; justify-content: space-around; align-items: flex-end; }
+        .scale-cup { background: #cbd5e0; padding: 20px 15px; border-radius: 8px 8px 0 0; border-bottom: 5px solid #4a5568; text-align: center; width: 40%; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.05); min-height: 40px; transition: all 0.3s; }
+        .scale-equal { font-size: 2.2em; color: #4a5568; align-self: center; font-weight: bold; }
+        .item-x { background: #3182ce; color: white; padding: 6px 12px; border-radius: 4px; display: inline-block; margin: 2px; font-weight: bold; }
+        .item-weight { background: #e53e3e; color: white; padding: 6px 12px; border-radius: 4px; display: inline-block; margin: 2px; font-weight: bold; transition: all 0.3s; }
+        
+        /* Эффект плавного исчезновения гири */
+        .fade-out { opacity: 0; transform: translateY(-20px); pointer-events: none; }
+        
+        .btn-action { background-color: #e53e3e; color: white; border: none; padding: 10px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 1em; margin: 15px auto; display: block; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-action:hover { background-color: #c53030; }
+
         details { background: #edf2f7; padding: 15px; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
         details[open] { background: #e2e8f0; }
         summary { font-weight: bold; outline: none; }
         .test-answer { margin-top: 10px; padding: 10px; background: white; border-radius: 4px; border-left: 3px solid #38a169; }
-
-/* Красивый блок для визуализации весов */
-.scales-container { display: flex; justify-content: space-around; align-items: flex-end; background: #e2e8f0; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px dashed #cbd5e0; }
-.scale-cup { background: #cbd5e0; padding: 15px; border-radius: 8px 8px 0 0; border-bottom: 5px solid #4a5568; text-align: center; width: 40%; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-.scale-equal { font-size: 2em; color: #4a5568; align-self: center; font-weight: bold; }
-.item-x { background: #3182ce; color: white; padding: 5px 10px; border-radius: 4px; display: inline-block; margin: 2px; }
-.item-weight { background: #e53e3e; color: white; padding: 5px 10px; border-radius: 4px; display: inline-block; margin: 2px; }
-        
     </style>
 </head>
 <body>
 
-    <!-- Наша надежная ссылка возврата на главную -->
     <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
 
     <div class="lesson-block">
         <h1>Урок 3. Линейные уравнения: как находить «X» без головной боли</h1>
-        <p>Знак равенства (<strong>=</strong>) в уравнении — это знак идеального баланса. Представьте себе старые аптекарские чашечные весы:</p>
-        <ul>
-            <li>На левой чаше лежит мешок с неизвестным весом (<span class="formula-inline">x</span>) и гиря 5 кг.</li>
-            <li>На правой чаше лежат гири общей массой 12 кг.</li>
-            <li>Весы находятся в идеальном равновесии: <span class="formula-inline">x + 5 = 12</span>.</li>
-        </ul>
-        <p>Чтобы узнать вес мешка, нужно убрать гирю 5 кг слева. Но чтобы весы не перекосило, <strong>точно такую же гирю в 5 кг нужно убрать и справа</strong>! Получаем: <span class="formula-inline">x = 12 - 5</span>, то есть <span class="formula-inline">x = 7</span>.</p>
+        <p>Знак равенства (<strong>=</strong>) в уравнении — это знак идеального баланса. Представьте себе старые аптекарские чашечные весы.</p>
+        <p>Нажмите на кнопку под весами, чтобы убрать лишний груз и найти точный вес секретного мешка:</p>
+        
+        <!-- НАШИ ЖИВЫЕ ВЕСЫ -->
+        <div class="scales-container">
+            <div class="scale-cup" id="leftCup">
+                <span class="item-x">Мешок X</span>
+                <span id="weight5" class="item-weight">Гиря 5 кг</span>
+            </div>
+            <div class="scale-equal">=</div>
+            <div class="scale-cup">
+                <span id="weight12" class="item-weight" style="background-color: #e53e3e;">Гиря 12 кг</span>
+            </div>
+        </div>
+
+        <button id="btnAction" class="btn-action">Убрать гирю 5 кг с левой чаши →</button>
+        
+        <!-- Динамическое уравнение под весами -->
+        <div id="equationDisplay" class="formula-main">x + 5 = 12</div>
     </div>
-<div class="scales-container">
-    <!-- Левая чаша весов -->
-    <div class="scale-cup">
-        <span class="item-x">Мешок X</span>
-        <span class="item-weight">Гиря 5 кг</span>
-    </div>
-    
-    <!-- Знак равенства по центру -->
-    <div class="scale-equal">=</div>
-    
-    <!-- Правая чаша весов -->
-    <div class="scale-cup">
-        <span class="item-weight">Гиря 12 кг</span>
-    </div>
-</div>
+
     <div class="lesson-block">
         <h2>1. Главное правило: «Иксы — налево, числа — направо»</h2>
-        <p>Когда уравнение длинное, мы можем переносить слагаемые через знак равенства «=» как через границу. Но есть строгое условие:</p>
-        <p style="background-color: #f0f7ff; border-left: 4px solid #007bff; padding: 15px; border-radius: 0 8px 8px 0;">
-            <strong>Правило переноса:</strong> Когда число или «икс» перешагивает через знак «=», оно меняет свой математический знак на противоположный (плюс меняется на минус, а минус — на плюс).
-        </p>
+        <p>Когда число или «икс» перешагивает через знак «=», оно меняет свой математический знак на противоположный (плюс меняется на минус, а минус — на плюс).</p>
     </div>
 
     <div class="lesson-block">
-        <h2>2. Пошаговый алгоритм решения</h2>
-        <p>Разберем уравнение: <span class="formula-inline">3x - 4 = x + 6</span></p>
-        <ol>
-            <li><strong>Группируем:</strong> переносим <span class="formula-inline">x</span> налево (стал <span class="formula-inline">-x</span>), а число <span class="formula-inline">-4</span> направо (стало <span class="formula-inline">+4</span>): <br><span class="formula-inline">3x - x = 6 + 4</span>.</li>
-            <li><strong>Считаем части:</strong> было 3 мешка, забрали 1 — осталось 2 мешка (<span class="formula-inline">2x</span>). Справа: <span class="formula-inline">6 + 4 = 10</span>. Получаем: <br><span class="formula-inline">2x = 10</span>.</li>
-            <li><strong>Находим X:</strong> делим число справа на множитель перед иксом: <br><span class="formula-inline">x = 10 / 2 = 5</span>.</li>
-        </ol>
-        <p><strong>Ответ:</strong> <span class="formula-inline">x = 5</span>.</p>
-    </div>
-
-    <div class="lesson-block">
-        <h2>3. Проверь себя: мини-тест</h2>
+        <h2>2. Проверь себя: mini-тест</h2>
         <details>
             <summary>Вопрос №1: Решите уравнение: 2x + 7 = 15. Чему равен x?</summary>
             <div class="test-answer">
                 <p><strong>Правильный ответ: x = 4.</strong></p>
-                <p><em>Разбор:</em> Переносим 7 направо со знаком минус: <span class="formula-inline">2x = 15 - 7</span> → <span class="formula-inline">2x = 8</span>. Делим на 2: <span class="formula-inline">x = 8 / 2 = 4</span>.</p>
-            </div>
-        </details>
-
-        <details>
-            <summary>Вопрос №2: Найдите корень уравнения: 5x - 3 = 2x + 9</summary>
-            <div class="test-answer">
-                <p><strong>Правильный expert-ответ: x = 4.</strong></p>
-                <p><em>Разбор:</em> Собираем иксы слева, числа справа: <span class="formula-inline">5x - 2x = 9 + 3</span>. Считаем: <span class="formula-inline">3x = 12</span>. Находим икс: <span class="formula-inline">x = 12 / 3 = 4</span>.</p>
+                <p><em>Разбор:</em> Переносим 7 направо со знаком минус: <span class="formula-inline">2x = 15 - 7</span> &rarr; <span class="formula-inline">2x = 8</span>. Делим на 2: <span class="formula-inline">x = 8 / 2 = 4</span>.</p>
             </div>
         </details>
     </div>
+
+    <!-- ДВИЖОК АНИМАЦИИ ВЕСОВ JAVASCRIPT -->
+    <script>
+        const btnAction = document.getElementById('btnAction');
+        const weight5 = document.getElementById('weight5');
+        const weight12 = document.getElementById('weight12');
+        const eqDisplay = document.getElementById('equationDisplay');
+        
+        let isCleared = false;
+
+        btnAction.addEventListener('click', function() {
+            if (!isCleared) {
+                // 1. Анимированно убираем гирю 5кг
+                weight5.classList.add('fade-out');
+                
+                // 2. Включаем задержку, чтобы гири менялись синхронно
+                setTimeout(() => {
+                    weight5.style.display = 'none';
+                    // Превращаем 12 кг в 7 кг на правой чаше
+                    weight12.textContent = 'Гиря 7 кг';
+                    weight12.style.backgroundColor = '#38a169'; // меняем цвет на победный зеленый
+                    
+                    // Обновляем уравнение под весами
+                    eqDisplay.innerHTML = 'x = 12 - 5 &rarr; <span style="color: #38a169;">x = 7</span>';
+                }, 300);
+                
+                // 3. Меняем кнопку на сброс
+                btnAction.textContent = 'Вернуть всё назад ↺';
+                btnAction.style.backgroundColor = '#4a5568';
+                isCleared = true;
+            } else {
+                // Логика возврата назад (перезапуск симулятора)
+                weight5.style.display = 'inline-block';
+                setTimeout(() => {
+                    weight5.classList.remove('fade-out');
+                    weight12.textContent = 'Гиря 12 кг';
+                    weight12.style.backgroundColor = '#e53e3e';
+                    eqDisplay.innerHTML = 'x + 5 = 12';
+                }, 50);
+                
+                btnAction.textContent = 'Убрать гирю 5 кг с левой чаши →';
+                btnAction.style.backgroundColor = '#e53e3e';
+                isCleared = false;
+            }
+        });
+    </script>
 
 </body>
 </html>
