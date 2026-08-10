@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Урок 9: Как пользоваться таблицей Брадиса</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; background: #f7fafc; }
+        h1, h2, h3 { color: #2d3748; }
+        a { color: #3182ce; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+        .back-link { display: inline-block; margin-bottom: 20px; color: #4a5568; }
+        .lesson-block { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); margin-bottom: 25px; }
+        .formula-inline { font-family: 'Times New Roman', serif; font-weight: bold; font-size: 1.2em; }
+        
+        /* Стили для интерактивной таблицы Брадиса */
+        .bradisez-container { background: #edf2f7; border: 2px solid #cbd5e0; border-radius: 8px; padding: 20px; margin: 20px 0; display: flex; flex-direction: column; align-items: center; }
+        .control-panel { background: #e2e8f0; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; width: 100%; box-sizing: border-box; }
+        .select-box { padding: 8px 12px; font-size: 1em; font-weight: bold; border-radius: 6px; border: 1px solid #cbd5e0; margin: 0 10px; cursor: pointer; }
+        
+        /* Стили самой сетки таблицы */
+        table { border-collapse: collapse; background: white; width: 100%; max-width: 500px; text-align: center; font-family: monospace; font-size: 1.1em; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-radius: 6px; overflow: hidden; }
+        th, td { padding: 10px; border: 1px solid #e2e8f0; }
+        th { background: #4a5568; color: white; font-family: sans-serif; font-size: 0.9em; }
+        .row-header { background: #4a5568; color: white; font-family: sans-serif; font-weight: bold; }
+        
+        /* Цвета подсветки (неоновый лазер) */
+        .highlight-row { background-color: #ebf8ff !important; }
+        .highlight-col { background-color: #feebc8 !important; }
+        .highlight-match { background-color: #38a169 !important; color: white !important; font-weight: bold; }
+        
+        .result-box { background: white; padding: 15px; border-radius: 6px; border-left: 5px solid #38a169; text-align: left; width: 100%; box-sizing: border-box; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="back-link">← Вернуться в Главное Меню</a>
+
+    <div class="lesson-block">
+        <h1>Урок 9. Как пользоваться таблицей Брадиса: секреты древних инженеров</h1>
+        <p>Далеко не всегда под рукой есть инженерный калькулятор (или интернет с Vercel). На экзаменах или контрольных главным спасением становится легендарный инструмент — <strong>Таблица Брадиса</strong>.</p>
+        <p>Это огромный сборник, где математики прошлого уже рассчитали значения всех синусов, косинусов и тангенсов для любого угла с точностью до минут. Перед числами в таблице для экономии места <strong>не пишут ноль и запятую</strong>. То есть, если вы видите число <span class="formula-inline">3584</span>, это означает <span class="formula-inline">0.3584</span>.</p>
+    </div>
+
+    <!-- НАША ЖИВАЯ ИНТЕРАКТИВНАЯ ТАБЛИЦА -->
+    <div class="lesson-block">
+        <h2>🔬 Интерактивный симулятор таблицы Брадиса (для Синусов)</h2>
+        <p>Выберите нужный угол и минуты на панели управления. Лазерные маркеры автоматически подстветят нужную строчку, столбец и число на их пересечении:</p>
+        
+        <div class="bradisez-container">
+            <div class="control-panel">
+                Градусы:
+                <select id="selectGrad" class="select-box">
+                    <option value="21">21°</option>
+                    <option value="22" selected>22°</option>
+                    <option value="23">23°</option>
+                </select>
+                Минуты:
+                <select id="selectMin" class="select-box">
+                    <option value="0">0'</option>
+                    <option value="6">6'</option>
+                    <option value="12" selected>12'</option>
+                    <option value="18">18'</option>
+                </select>
+            </div>
+
+            <!-- Сама интерактивная HTML сетка -->
+            <table id="bradisValueTable">
+                <tr>
+                    <th>Град.</th>
+                    <th>0'</th>
+                    <th>6'</th>
+                    <th>12'</th>
+                    <th>18'</th>
+                </tr>
+                <tr id="row21">
+                    <td class="row-header">21°</td>
+                    <td>3584</td>
+                    <td>3594</td>
+                    <td>3604</td>
+                    <td>3614</td>
+                </tr>
+                <tr id="row22">
+                    <td class="row-header">22°</td>
+                    <td>3746</td>
+                    <td>3756</td>
+                    <td>3766</td>
+                    <td>3776</td>
+                </tr>
+                <tr id="row23">
+                    <td class="row-header">23°</td>
+                    <td>3907</td>
+                    <td>3917</td>
+                    <td>3927</td>
+                    <td>3937</td>
+                </tr>
+            </table>
+
+            <!-- Живые расчеты под таблицей -->
+            <div class="result-box">
+                <div id="bradisStepText" style="font-weight: bold; color: #2d3748; font-size: 1.1em;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lesson-block">
+        <h2>1. А если нужных минут нет? (Правило поправок)</h2>
+        <p>В таблице минуты идут с шагом в 6 минут (<span class="formula-inline">0', 6', 12', 18'...</span>). Что делать, если вам нужно найти синус угла <span class="formula-inline">22° 14'</span>?</p>
+        <ul>
+            <li>Шаг 1. Ищем ближайшее значение в меньшую сторону — это <span class="formula-inline">22° 12'</span> (число <span class="formula-inline">0.3766</span>).</li>
+            <li>Шаг 2. Нам не хватает еще двух минут (<span class="formula-inline">2'</span>).</li>
+            <li>Шаг 3. Смотрим в правые колонки таблицы (они называются «Поправки») в строчку нашего угла под цифру 2. Там будет поправка (например, <span class="formula-inline">5</span>).</li>
+            <li>Шаг 4. Так как синус при росте угла растет, мы <strong>прибавляем</strong> поправку к числу: <br><span class="formula-inline">0.3766 + 0.0005 = 0.3771</span>.</li>
+        </ul>
+        <p><em>Внимание:</em> Для косинусов всё наоборот! Косинус при росте угла уменьшается, поэтому минутную поправку нужно <strong>вычитать</strong>!</p>
+    </div>
+
+    <div class="lesson-block">
+        <h2>2. Проверь себя: mini-тест</h2>
+        <details>
+            <summary>Вопрос №1: Какое реальное математическое число скрывается за значением таблицы 5000?</summary>
+            <div class="test-answer">
+                <p><strong>Правильный ответ: 0.5 (или 0.5000).</strong></p>
+                <p><em>Разбор:</em> Таблица Брадиса экономит место на бумаге. Перед каждым числом неявно стоит ноль и запятая. <span class="formula-inline">0.5</span> — это, к слову, точный синус угла 30°!</p>
+            </div>
+        </details>
+    </div>
+
+    <!-- ИСПРАВЛЕННЫЙ ДВИЖОК ПОДСВЕТКИ ТАБЛИЦЫ JAVASCRIPT -->
+    <script>
+        const selectGrad = document.getElementById('selectGrad');
+        const selectMin = document.getElementById('selectMin');
+        const table = document.getElementById('bradisValueTable');
+        const stepText = document.getElementById('bradisStepText');
+
+        const data = {
+            "21": { "0": "3584", "6": "3594", "12": "3604", "18": "3614" },
+            "22": { "0": "3746", "6": "3756", "12": "3766", "18": "3776" },
+            "23": { "0": "3907", "6": "3917", "12": "3927", "18": "3937" }
+        };
+
+        function highlightTable() {
+            const grad = selectGrad.value;
+            const min = selectMin.value;
+            
+            const allCells = table.getElementsByTagName('td');
+            for (let cell of allCells) {
+                cell.className = cell.className.replace('highlight-row', '').replace('highlight-col', '').replace('highlight-match', '');
+            }
+            
+            const targetRow = document.getElementById("row" + grad);
+            
+            let colIndex = 1;
+            if (min === "6") colIndex = 2;
+            if (min === "12") colIndex = 3;
+            if (min === "18") colIndex = 4;
+            
+            const rowCells = targetRow.getElementsByTagName('td');
+            for (let i = 1; i < rowCells.length; i++) {
+                rowCells[i].classList.add('highlight-row');
+            }
+            
+            for (let i = 1; i < table.rows.length; i++) {
+                table.rows[i].cells[colIndex].classList.add('highlight-col');
+            }
+            
+            const matchCell = targetRow.cells[colIndex];
+            matchCell.className = ''; 
+            matchCell.classList.add('highlight-match');
+            
+            const rawValue = data[grad][min];
+            // Используем стандартные кавычки и сложение строк для полной надежности локально
+            stepText.innerHTML = "Результат пересечения: строка " + grad + "° и столбец " + min + "' &rarr; число " + rawValue + ".<br><span style='color: #38a169;'>Ответ: sin(" + grad + "° " + min + "') = 0." + rawValue + "</span>";
+        }
+
+        selectGrad.addEventListener('change', highlightTable);
+        selectMin.addEventListener('change', highlightTable);
+        
+        highlightTable();
+    </script>
+</body>
+</html>->
